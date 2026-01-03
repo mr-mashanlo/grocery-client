@@ -1,6 +1,8 @@
 import { type FC } from 'react';
 
-const SigninPage: FC = () => {
+import { SignInForm } from '@/features/sign-in-form';
+
+const SignInPage: FC = () => {
   return (
     <>
       <title>Sign in</title>
@@ -10,9 +12,10 @@ const SigninPage: FC = () => {
       <meta property="twitter:card" content="summary" />
 
       <section className="h-screen p-5 sm:p-15 flex justify-center items-center">
+        <SignInForm />
       </section>
     </>
   );
 };
 
-export default SigninPage;
+export default SignInPage;

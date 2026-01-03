@@ -1,6 +1,8 @@
 import { type FC } from 'react';
 
-const SignupPage: FC = () => {
+import { SignUpForm } from '@/features/sign-up-form';
+
+const SignUpPage: FC = () => {
   return (
     <>
       <title>Sign up</title>
@@ -10,9 +12,10 @@ const SignupPage: FC = () => {
       <meta property="twitter:card" content="summary" />
 
       <section className="h-screen p-5 sm:p-15 flex justify-center items-center">
+        <SignUpForm />
       </section>
     </>
   );
 };
 
-export default SignupPage;
+export default SignUpPage;
