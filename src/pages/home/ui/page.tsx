@@ -1,5 +1,6 @@
 import { type FC } from 'react';
 
+import { ShopControls } from '@/features/shop-controls';
 import { Products } from '@/widgets/products';
 
 export const HomePage: FC = () => {
@@ -13,6 +14,7 @@ export const HomePage: FC = () => {
 
       <div className="p-3 sm:p-15">
         <Products />
+        <ShopControls />
       </div>
     </>
   );
