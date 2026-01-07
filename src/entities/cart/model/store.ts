@@ -18,17 +18,17 @@ export const useCartStore = create( persist<Store>( ( set, get ) => ( {
 
   increase: ( product ) => {
     const exists = get().products.find( item => item.product === product );
-    if ( !exists ) set( { products: [ ...get().products, { product, quantity: 1 } ] } );
+    if ( !exists ) return set( { products: [ ...get().products, { product, quantity: 1 } ] } );
     const updatedProducts = get().products.map( item => item.product === product ? { ...item, quantity: item.quantity + 1 } : item );
-    set( { products: updatedProducts } );
+    return set( { products: updatedProducts } );
   },
 
   decrease: ( product ) => {
     const exists = get().products.find( item => item.product === product );
     if ( !exists ) return;
-    if ( exists.quantity <= 0 ) set( { products: get().products.filter( item => item.product !== product ) } );
+    if ( exists.quantity <= 1 ) return set( { products: get().products.filter( item => item.product !== product ) } );
     const updatedProducts = get().products.map( item => item.product === product ? { ...item, quantity: item.quantity - 1 } : item );
-    set( { products: updatedProducts } );
+    return set( { products: updatedProducts } );
   },
 
   getProduct: ( product ) => {
