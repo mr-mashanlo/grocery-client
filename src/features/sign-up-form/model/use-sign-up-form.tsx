@@ -9,8 +9,9 @@ interface Props {
   onError?: () => void
 }
 
-const useSignIn = ( { onSuccess, onError }: Props = {} ) => {
-  const { signin } = useAuth();
+export const useSignUpForm = ( { onSuccess, onError }: Props = {} ) => {
+
+  const { signup } = useAuth();
 
   const form = useForm( {
     defaultValues: {
@@ -20,7 +21,7 @@ const useSignIn = ( { onSuccess, onError }: Props = {} ) => {
 
     onSubmit: async ( { value, formApi } ) => {
       try {
-        await signin( value );
+        await signup( value );
         onSuccess?.();
       } catch ( error ) {
         if ( error instanceof HTTPError ) {
@@ -33,6 +34,5 @@ const useSignIn = ( { onSuccess, onError }: Props = {} ) => {
   } );
 
   return form;
-};
 
-export default useSignIn;
+};
