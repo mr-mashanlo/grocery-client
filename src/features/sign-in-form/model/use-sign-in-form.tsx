@@ -15,8 +15,8 @@ export const useSignInForm = ( { onSuccess, onError }: Props = {} ) => {
 
   const form = useForm( {
     defaultValues: {
-      nickname: '',
-      password: ''
+      nickname: 'nickname',
+      password: 'nickname'
     },
 
     onSubmit: async ( { value, formApi } ) => {
