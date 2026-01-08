@@ -1,3 +1,3 @@
-import useAuth from './model/hook';
+import { useAuth } from './model/use-auth';
 
 export { useAuth };

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { productService } from '../api/api';
 import { useFilterStore } from './store';
 
-const useProducts = ( params?: Record<string, string> ) => {
+export const useProducts = ( params?: Record<string, string> ) => {
 
   const { category } = useFilterStore();
 
@@ -16,5 +16,3 @@ const useProducts = ( params?: Record<string, string> ) => {
   return { products };
 
 };
-
-export default useProducts;

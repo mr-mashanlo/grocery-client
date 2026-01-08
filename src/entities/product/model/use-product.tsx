@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { productService } from '../api/api';
 
-const useProduct = () => {
+export const useProduct = () => {
 
   const queryClient = useQueryClient();
 
@@ -14,5 +14,3 @@ const useProduct = () => {
   return { product };
 
 };
-
-export default useProduct;

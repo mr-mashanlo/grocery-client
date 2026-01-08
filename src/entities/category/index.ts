@@ -1,3 +1,3 @@
-import useCategories from './model/use-categories';
+import { useCategories } from './model/use-categories';
 
 export { useCategories };

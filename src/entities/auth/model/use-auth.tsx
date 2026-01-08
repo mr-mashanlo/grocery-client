@@ -1,7 +1,7 @@
 import { authService } from '../api/api';
 import { type AuthDTO } from './schema';
 
-const useAuth = () => {
+export const useAuth = () => {
 
   const signin = ( data: AuthDTO ) => authService.signin( data );
 
@@ -14,5 +14,3 @@ const useAuth = () => {
   return { signin, signup, signout, refresh };
 
 };
-
-export default useAuth;
