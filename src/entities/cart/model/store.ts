@@ -8,7 +8,7 @@ interface Store {
   increase: ( product: string ) => void,
   decrease: ( product: string ) => void,
   getProduct: ( product: string ) => Cart | undefined,
-  getQuantity: ( product: string ) => number
+  getQuantity: ( product: string ) => number,
   getQuantities: () => number
 }
 
