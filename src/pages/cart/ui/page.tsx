@@ -1,0 +1,27 @@
+import { type FC } from 'react';
+import { Link } from 'react-router';
+
+import { useCartStore } from '@/entities/cart';
+import { CartProducts } from '@/widgets/cart-products';
+import { PageControls } from '@/widgets/page-controls';
+
+export const CartPage: FC = () => {
+  const { getQuantities } = useCartStore();
+
+  return (
+    <>
+      <title>Grocery</title>
+      <meta property="og:title" content="Grocery" />
+      <meta property="og:image" content="/meta.svg" />
+      <meta property="og:site_name" content="Grocery" />
+      <meta property="twitter:card" content="summary" />
+
+      <div className="px-4 py-10 pb-19 sm:p-15 sm:pb-20">
+        <CartProducts />
+        <PageControls controls={getQuantities() ? <Link to="/address" className="py-5 text-center bg-zinc-200">Next</Link> : <Link to="/" className="py-5 text-center bg-zinc-200">Back</Link>} />
+      </div>
+    </>
+  );
+};
+
+export default CartPage;
