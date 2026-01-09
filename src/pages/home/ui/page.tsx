@@ -1,7 +1,7 @@
 import { type FC } from 'react';
 
 import { ShopControls } from '@/features/shop-controls';
-import { Products } from '@/widgets/products';
+import { ShopProducts } from '@/widgets/shop-products';
 
 export const HomePage: FC = () => {
   return (
@@ -12,8 +12,8 @@ export const HomePage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <div className="p-3 sm:p-15">
-        <Products />
+      <div className="px-4 py-10 pb-19 sm:p-15 sm:pb-20">
+        <ShopProducts />
         <ShopControls />
       </div>
     </>

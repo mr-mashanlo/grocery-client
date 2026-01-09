@@ -11,7 +11,7 @@ const SignUpPage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <section className="h-screen p-5 sm:p-15 flex justify-center items-center">
+      <section className="h-screen p-4 sm:p-15 flex justify-center items-center">
         <SignUpForm />
       </section>
     </>
