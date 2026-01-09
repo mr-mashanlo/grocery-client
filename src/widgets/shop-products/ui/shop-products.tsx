@@ -5,7 +5,7 @@ import { CartControls } from '@/features/cart-controls';
 
 const ShopProducts: FC = () => {
   const { category } = useFilterStore();
-  const { products } = useProducts( { limit: '0', category: category._id } );
+  const { products } = useProducts( category._id ? { limit: '0', archived: 'false', category: category._id } : { limit: '0', archived: 'false' } );
 
   return (
     <section className="max-w-200 mx-auto">
