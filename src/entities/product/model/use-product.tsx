@@ -1,14 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { productService } from '../api/api';
 
-export const useProduct = () => {
+export const useProduct = ( id: string ) => {
 
-  const queryClient = useQueryClient();
-
-  const product = useMutation( {
-    mutationFn: ( id: string ) => productService.get( id ),
-    onSuccess: () => queryClient.invalidateQueries( { queryKey: [ 'product' ] } )
+  const product = useQuery( {
+    queryKey: [ 'product', id ],
+    queryFn: () => productService.get( id ),
+    placeholderData: data => data
   } );
 
   return { product };

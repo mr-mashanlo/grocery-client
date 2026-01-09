@@ -7,9 +7,9 @@ interface Store {
   products: Array<Cart>,
   increase: ( product: string ) => void,
   decrease: ( product: string ) => void,
-  getProduct: ( product: string ) => Cart | undefined,
   getQuantity: ( product: string ) => number,
-  getQuantities: () => number
+  getQuantities: () => number,
+  reset: () => void
 }
 
 export const useCartStore = create( persist<Store>( ( set, get ) => ( {
@@ -31,16 +31,16 @@ export const useCartStore = create( persist<Store>( ( set, get ) => ( {
     return set( { products: updatedProducts } );
   },
 
-  getProduct: ( product ) => {
-    return get().products.find( item => item.product === product );
-  },
-
   getQuantity: ( product ) => {
     return get().products.find( item => item.product === product )?.quantity || 0;
   },
 
   getQuantities: () => {
     return get().products.reduce( ( acc, item ) => { return acc = acc + item.quantity; }, 0 );
+  },
+
+  reset: () => {
+    return set( { products: [] } );
   }
 
 } ), { name: 'cart' } ) );
