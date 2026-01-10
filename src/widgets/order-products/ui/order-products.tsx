@@ -7,9 +7,9 @@ const OrderProducts: FC = () => {
   const { orders } = useOrders( { sort: '-1' } );
 
   return (
-    <section className="max-w-97.5 mx-auto">
-      <h2 className="mb-8 sm:mb-15 text-center text-3xl font-bold">Orders</h2>
-      <div className="grid gap-4 sm:gap-5">
+    <section>
+      <h2 className="mb-8 sm:mb-15 text-4xl font-bold">Orders</h2>
+      <div className="grid grid-cols-3 gap-4 sm:gap-7.5">
         {orders.data?.data.map( order => <OrderCard key={order._id} order={order} /> )}
       </div>
     </section>

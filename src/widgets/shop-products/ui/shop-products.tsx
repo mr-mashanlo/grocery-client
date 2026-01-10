@@ -8,10 +8,10 @@ const ShopProducts: FC = () => {
   const { products } = useProducts( category._id ? { limit: '0', archived: 'false', category: category._id } : { limit: '0', archived: 'false' } );
 
   return (
-    <section className="max-w-200 mx-auto">
-      <h2 className="mb-8 sm:mb-15 text-center text-3xl font-bold">{category.title}</h2>
-      <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
-        {products.data?.data.map( product => <ProductCard key={product._id} product={product} controls={<CartControls product={product._id} />} /> )}
+    <section>
+      <h2 className="mb-8 sm:mb-18 text-4xl font-bold">{category.title}</h2>
+      <div className="grid sm:grid-cols-3 gap-4 sm:gap-7.5">
+        {products.data?.data.map( product => <ProductCard key={product._id} product={product} controls={<CartControls product={product._id} />} quantity={product.stock?.quantity || 99} /> )}
       </div>
     </section>
   );
