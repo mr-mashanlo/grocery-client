@@ -15,7 +15,7 @@ const OrderForm: FC = () => {
   return (
     <form onSubmit={handleFormSubmit} className="w-full relative">
       <form.Subscribe selector={state => [ state.canSubmit, state.isSubmitting ]} children={( [ canSubmit, isSubmitting ] ) =>
-        <Button disabled={!canSubmit} type="submit" className="w-full py-5 text-center bg-zinc-200 cursor-pointer disabled:cursor-default disabled:opacity-70">{isSubmitting ? '•••' : 'Order'}</Button> }
+        <Button disabled={!canSubmit} type="submit" className="w-full py-5 text-center bg-black text-white cursor-pointer disabled:cursor-default disabled:opacity-70">{isSubmitting ? '•••' : 'Order'}</Button> }
       />
     </form>
   );
