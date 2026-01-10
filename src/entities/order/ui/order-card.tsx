@@ -1,4 +1,5 @@
 import { type FC } from 'react';
+import { Link } from 'react-router';
 
 import type { Order } from '../model/schema';
 
@@ -8,20 +9,18 @@ interface Props {
 
 const OrderCard: FC<Props> = ( { order } ) => {
   return (
-    <article className="bg-zinc-100 rounded-2xl">
-      <div className="flex">
-        <p className="w-12.5 h-12.5 flex items-center justify-center font-bold">0</p>
-        <p className="h-12.5 px-3 flex items-center grow border-l border-zinc-200 font-bold">{order.createdAt}</p>
-        <p className="w-25 h-12.5 flex items-center justify-center border-l border-zinc-200 font-bold">${order.totalPrice}</p>
-        <p className="w-12.5 h-12.5 flex items-center justify-center border-l border-zinc-200 font-bold">{order.totalQuantity}</p>
-      </div>
-      {order.products.map( product => (
-        <div key={product.product} className="flex border-t border-zinc-200">
-          <p className="w-12.5 h-12.5 px-3 flex items-center grow"><span className="line-clamp-1">{product.product}</span></p>
-          <p className="w-25 h-12.5 flex items-center justify-center border-l border-zinc-200">${product.price}</p>
-          <p className="w-12.5 h-12.5 flex items-center justify-center border-l border-zinc-200">{product.quantity}</p>
+    <article className="flex bg-zinc-100 rounded-2xl">
+      <img src="https://placehold.co/400" alt={order._id} className="w-25 h-25 bg-zinc-200 rounded-s-2xl" />
+      <div className="w-full">
+        <div className="flex">
+          <h3 className="w-12.5 h-12.5 px-3 flex items-center grow"><Link to={`/order/${order._id}`} className="line-clamp-1">Order: {order._id.slice( -6 )}</Link></h3>
+          <p className="w-12.5 h-12.5 flex items-center justify-center border-l border-zinc-200">{order.totalQuantity}</p>
         </div>
-      ) )}
+        <div className="flex border-t border-zinc-200">
+          <p className="w-25 h-12.5 px-3 flex items-center">${order.totalPrice}</p>
+          <p className="h-12.5 flex items-center justify-center grow text-center border-l border-zinc-200">{order.createdAt}</p>
+        </div>
+      </div>
     </article>
   );
 };
