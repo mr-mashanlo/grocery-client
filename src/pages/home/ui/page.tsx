@@ -12,7 +12,7 @@ export const HomePage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <div className="px-4 py-10 pb-19 sm:p-15 sm:pb-20">
+      <div className="px-4 py-10 pb-19 sm:p-37.5">
         <ShopProducts />
         <ShopControls />
       </div>

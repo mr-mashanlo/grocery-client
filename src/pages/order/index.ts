@@ -1,3 +1,3 @@
-import { ordersRouter } from './model/router';
+import { orderRouter } from './model/router';
 
-export { ordersRouter };
+export { orderRouter };

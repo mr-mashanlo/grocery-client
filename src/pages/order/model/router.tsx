@@ -1,8 +1,8 @@
 import { type RouteObject } from 'react-router';
 
-import OrdersPage from '../ui/page';
+import OrderPage from '../ui/page';
 
-export const ordersRouter: RouteObject = {
-  path: '/orders',
-  element: <OrdersPage />
+export const orderRouter: RouteObject = {
+  path: '/order/:id',
+  element: <OrderPage />
 };

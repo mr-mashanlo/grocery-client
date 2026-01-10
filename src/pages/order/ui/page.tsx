@@ -1,9 +1,9 @@
 import { type FC } from 'react';
 import { Link } from 'react-router';
 
-import { OrderProducts } from '@/widgets/order-products';
+import { OrderProduct } from '@/widgets/order-product';
 
-export const OrdersPage: FC = () => {
+export const OrderPage: FC = () => {
   return (
     <>
       <title>Grocery</title>
@@ -12,15 +12,15 @@ export const OrdersPage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <div className="px-4 py-10 pb-19 sm:p-15 sm:pb-20">
-        <OrderProducts />
-        <div className="w-full sm:w-150 grid grid-cols-4 items-center fixed bottom-0 left-0">
-          <p className="p-5 col-span-3 sm:col-span-2 text-left bg-zinc-100">0</p>
-          <Link to="/" className="block p-5 bg-zinc-200 text-center">Back</Link>
+      <div className="px-4 py-10 pb-19 sm:p-37.5">
+        <OrderProduct />
+        <div className="w-full sm:w-150 grid grid-cols-3 items-center fixed bottom-0 left-0">
+          <div className="h-full col-span-2 bg-zinc-100"></div>
+          <Link to="/" className="py-5 text-center bg-black text-white">Back</Link>
         </div>
       </div>
     </>
   );
 };
 
-export default OrdersPage;
+export default OrderPage;

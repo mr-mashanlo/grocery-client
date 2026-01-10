@@ -16,9 +16,9 @@ export const CartPage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <div className="px-4 py-10 pb-19 sm:p-15 sm:pb-20">
+      <div className="px-4 py-10 pb-19 sm:p-37.5">
         <CartProducts />
-        <PageControls controls={getQuantities() ? <Link to="/address" className="py-5 text-center bg-zinc-200">Next</Link> : <Link to="/" className="py-5 text-center bg-zinc-200">Back</Link>} />
+        <PageControls controls={getQuantities() ? <Link to="/checkout" className="py-5 text-center bg-black text-white">Checkout</Link> : <Link to="/" className="py-5 text-center bg-black text-white">Back</Link>} />
       </div>
     </>
   );
