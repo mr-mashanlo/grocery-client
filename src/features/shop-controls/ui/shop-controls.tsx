@@ -12,7 +12,7 @@ const ShopControls: FC = () => {
   const { category, setCategory } = useFilterStore();
 
   return (
-    <div className="w-full sm:w-150 grid grid-cols-4 items-center fixed bottom-0 left-0">
+    <div className="w-full sm:w-150 grid grid-cols-3 items-center fixed bottom-0 left-0">
       <Listbox value={category} onChange={setCategory}>
         <ListboxButton className="p-5 col-span-2 text-left bg-zinc-100 cursor-pointer outline-0">
           {category.title}
@@ -22,8 +22,7 @@ const ShopControls: FC = () => {
           {categories.data?.data.map( category => <ListboxOption key={category._id} value={category} className="group flex items-center gap-2 cursor-pointer">{category.title}</ListboxOption> )}
         </ListboxOptions>
       </Listbox>
-      <Link to="/cart" className="py-5 text-center bg-zinc-200 cursor-pointer">Cart ({getQuantities()})</Link>
-      <Link to="/orders" className="py-5 text-center bg-zinc-300 cursor-pointer">Orders</Link>
+      <Link to="/cart" className="py-5 text-center bg-black text-white cursor-pointer">Cart ({getQuantities()})</Link>
     </div>
   );
 };
