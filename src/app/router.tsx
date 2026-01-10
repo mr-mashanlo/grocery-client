@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router';
 
-import { addressRouter } from '@/pages/address';
 import { cartRouter } from '@/pages/cart';
 import { checkoutRouter } from '@/pages/checkout';
 import { homeRouter } from '@/pages/home';
@@ -18,7 +17,7 @@ const router = createBrowserRouter( [
     children: [
       {
         element: <MainLayout />,
-        children: [ signInRouter, signUpRouter, homeRouter, cartRouter, checkoutRouter, addressRouter, ordersRouter, orderRouter, notFoundRouter ]
+        children: [ signInRouter, signUpRouter, homeRouter, cartRouter, checkoutRouter, ordersRouter, orderRouter, notFoundRouter ]
       }
     ]
   }

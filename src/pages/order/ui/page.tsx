@@ -6,8 +6,10 @@ import { OrderProduct } from '@/widgets/order-product';
 export const OrderPage: FC = () => {
   return (
     <>
-      <title>Grocery</title>
-      <meta property="og:title" content="Grocery" />
+      <title>Order Details | Grocery</title>
+      <meta property="og:title" content="Order Details | Grocery" />
+      <meta name="description" content="View details and status of your grocery order" />
+      <meta property="og:description" content="View details and status of your grocery order" />
       <meta property="og:image" content="/meta.svg" />
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />

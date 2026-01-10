@@ -10,8 +10,10 @@ export const CartPage: FC = () => {
 
   return (
     <>
-      <title>Grocery</title>
-      <meta property="og:title" content="Grocery" />
+      <title>Cart | Grocery</title>
+      <meta property="og:title" content="Cart | Grocery" />
+      <meta name="description" content="Review your selected groceries and adjust quantities before checkout" />
+      <meta property="og:description" content="Review your selected groceries and adjust quantities before checkout" />
       <meta property="og:image" content="/meta.svg" />
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />

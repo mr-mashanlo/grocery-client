@@ -14,8 +14,10 @@ export const CheckoutPage: FC = () => {
 
   return (
     <>
-      <title>Grocery</title>
-      <meta property="og:title" content="Grocery" />
+      <title>Checkout | Grocery</title>
+      <meta property="og:title" content="Checkout | Grocery" />
+      <meta name="description" content="Secure checkout to complete your grocery order quickly and safely" />
+      <meta property="og:description" content="Secure checkout to complete your grocery order quickly and safely" />
       <meta property="og:image" content="/meta.svg" />
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
