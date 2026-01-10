@@ -13,6 +13,9 @@ export const ProductSchema = z.object( {
     title: z.string(),
     slug: z.string()
   } ),
+  stock: z.object( {
+    quantity: z.number()
+  } ).optional(),
   quantity: z.object( {
     quantity: z.number()
   } ).optional()
