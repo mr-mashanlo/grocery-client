@@ -16,23 +16,23 @@ export const useCartStore = create( persist<Store>( ( set, get ) => ( {
 
   products: [],
 
-  increase: ( product ) => {
-    const exists = get().products.find( item => item.product === product );
-    if ( !exists ) return set( { products: [ ...get().products, { product, quantity: 1 } ] } );
-    const updatedProducts = get().products.map( item => item.product === product ? { ...item, quantity: item.quantity + 1 } : item );
+  increase: ( _id ) => {
+    const exists = get().products.find( item => item._id === _id );
+    if ( !exists ) return set( { products: [ ...get().products, { _id, quantity: 1 } ] } );
+    const updatedProducts = get().products.map( item => item._id === _id ? { ...item, quantity: item.quantity + 1 } : item );
     return set( { products: updatedProducts } );
   },
 
-  decrease: ( product ) => {
-    const exists = get().products.find( item => item.product === product );
+  decrease: ( _id ) => {
+    const exists = get().products.find( item => item._id === _id );
     if ( !exists ) return;
-    if ( exists.quantity <= 1 ) return set( { products: get().products.filter( item => item.product !== product ) } );
-    const updatedProducts = get().products.map( item => item.product === product ? { ...item, quantity: item.quantity - 1 } : item );
+    if ( exists.quantity <= 1 ) return set( { products: get().products.filter( item => item._id !== _id ) } );
+    const updatedProducts = get().products.map( item => item._id === _id ? { ...item, quantity: item.quantity - 1 } : item );
     return set( { products: updatedProducts } );
   },
 
-  getQuantity: ( product ) => {
-    return get().products.find( item => item.product === product )?.quantity || 0;
+  getQuantity: ( _id ) => {
+    return get().products.find( item => item._id === _id )?.quantity || 0;
   },
 
   getQuantities: () => {
