@@ -1,13 +1,14 @@
 import { useForm } from '@tanstack/react-form';
 import { HTTPError } from 'ky';
 
-import { useAddress, useUpgradeAddress } from '@/entities/address';
+import { useAddress, useCreateAddress, useUpgradeAddress } from '@/entities/address';
 import { mapServerErrors } from '@/shared/mappers';
 
 export const useAddressForm = () => {
 
   const { address } = useAddress();
-  const { upgrade } = useUpgradeAddress();
+  const { create } = useCreateAddress();
+  const { upgrade } = useUpgradeAddress( address.data?._id || '' );
 
   const form = useForm( {
     defaultValues: {
@@ -21,11 +22,15 @@ export const useAddressForm = () => {
 
     onSubmit: async ( { value, formApi } ) => {
       try {
-        await upgrade.mutateAsync( value );
+        if ( address.data ) {
+          await upgrade.mutateAsync( value );
+        } else {
+          await create.mutateAsync( value );
+        }
       } catch ( error ) {
         if ( error instanceof HTTPError ) {
           const errors = await error.response.json();
-          formApi.setErrorMap( { onChange: { fields: mapServerErrors( errors.issues ) } } );
+          formApi.setErrorMap( { onChange: { fields: mapServerErrors( errors.errors ) } } );
         }
       }
     }

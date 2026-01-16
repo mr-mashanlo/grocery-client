@@ -9,13 +9,13 @@ interface Props {
 
 const PageControls: FC<Props> = ( { controls } ) => {
   const { products: cartProducts, getQuantities } = useCartStore();
-  const { products: shopProducts } = useProducts( { limit: '0' } );
+  const { products: shopProducts } = useProducts();
 
-  const total = getTotalPrice( cartProducts, shopProducts.data?.data || [] );
+  const total = getTotalPrice( cartProducts, shopProducts.data || [] );
 
   return (
     <div className="w-full sm:w-150 grid grid-cols-3 items-center fixed bottom-0 left-0">
-      <p className="p-5 col-span-2 sm:col-span-2 text-left bg-zinc-100">Total: {total}, Quantity: {getQuantities()}</p>
+      <p className="p-5 col-span-2 sm:col-span-2 text-left bg-zinc-100">Total: ${Math.ceil( total )}, Quantity: {getQuantities()}</p>
       {controls}
     </div>
   );

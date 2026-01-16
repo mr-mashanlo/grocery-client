@@ -6,9 +6,9 @@ import { CartControls } from '@/features/cart-controls';
 
 const CartProducts: FC = () => {
   const { products: cartProducts } = useCartStore();
-  const { products: shopProducts } = useProducts( { limit: '0' } );
+  const { products: shopProducts } = useProducts( { limit: '48' } );
 
-  const products = getCartProducts( cartProducts, shopProducts.data?.data || [] );
+  const products = getCartProducts( cartProducts, shopProducts.data || [] );
 
   return (
     <section>
@@ -16,7 +16,7 @@ const CartProducts: FC = () => {
       {products.length
         ?
         <div className="grid sm:grid-cols-3 gap-4 sm:gap-7.5">
-          {products.map( product => <ProductCard key={product._id} product={product} controls={<CartControls product={product._id} />} quantity={product.stock?.quantity || 99} /> )}
+          {products.map( product => <ProductCard key={product._id} product={product} controls={<CartControls productId={product._id} quantity={product.stock} />} quantity={product.stock} /> )}
         </div>
         :
         <div className="text-center">

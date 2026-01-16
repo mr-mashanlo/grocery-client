@@ -7,8 +7,7 @@ export const AuthDTOSchema = z.object( {
 
 export const AuthSchema = z.object( {
   id: z.string(),
-  token: z.string(),
-  expired: z.number()
+  accessToken: z.string()
 } );
 
 export type AuthDTO = z.infer<typeof AuthDTOSchema>;

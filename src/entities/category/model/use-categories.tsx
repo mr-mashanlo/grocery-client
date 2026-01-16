@@ -6,7 +6,7 @@ export const useCategories = ( params?: Record<string, string> ) => {
 
   const categories = useQuery( {
     queryKey: [ 'categories' ],
-    queryFn: () => categoryService.getMany( params ),
+    queryFn: () => categoryService.getAllCategories( params ),
     placeholderData: data => data
   } );
 

@@ -7,17 +7,17 @@ import { ProductCard, useProducts } from '@/entities/product';
 const OrderProduct: FC = () => {
   const { id } = useParams();
   const { order } = useOrder( id || '' );
-  const { products: shopProducts } = useProducts( { limit: '0', archived: 'false' } );
+  const { products: shopProducts } = useProducts( { limit: '48' } );
 
   if ( !order.data ) return null;
 
-  const products = getOrderProducts( order.data, shopProducts.data?.data || [] );
+  const products = getOrderProducts( order.data, shopProducts.data || [] );
 
   return (
     <section>
-      <h2 className="mb-8 sm:mb-15 text-4xl font-bold">Order: {order.data?._id.slice( -6 )}</h2>
+      <h2 className="mb-8 sm:mb-15 text-4xl font-bold">Order #{order.data?._id.slice( -6 )}</h2>
       <div className="grid grid-cols-3 gap-4 sm:gap-7.5">
-        {products.map( product => <ProductCard key={product._id} product={product} quantity={product.quantity?.quantity || 99} /> )}
+        {products.map( product => <ProductCard key={product._id} product={product} quantity={product.quantity || 0} /> )}
       </div>
       <ul className="mt-8 sm:mt-15 grid gap-5">
         <li>Date: {order.data.createdAt}</li>

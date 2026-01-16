@@ -6,7 +6,7 @@ export const useOrders = ( params?: Record<string, string> ) => {
 
   const orders = useQuery( {
     queryKey: [ 'orders' ],
-    queryFn: () => orderService.getMany( params ),
+    queryFn: () => orderService.getAllOrders( params ),
     placeholderData: data => data
   } );
 

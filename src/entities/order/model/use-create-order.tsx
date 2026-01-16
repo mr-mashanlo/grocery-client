@@ -8,7 +8,7 @@ export const useCreateOrder = () => {
   const queryClient = useQueryClient();
 
   const create = useMutation( {
-    mutationFn: ( data: OrderDTO ) => orderService.create( data ),
+    mutationFn: ( data: OrderDTO ) => orderService.createOrder( data ),
     onSuccess: () => queryClient.invalidateQueries( { queryKey: [ 'order' ] } )
   } );
 

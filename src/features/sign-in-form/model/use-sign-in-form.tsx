@@ -26,7 +26,7 @@ export const useSignInForm = ( { onSuccess, onError }: Props = {} ) => {
       } catch ( error ) {
         if ( error instanceof HTTPError ) {
           const errors = await error.response.json();
-          formApi.setErrorMap( { onChange: { fields: mapServerErrors( errors.issues ) } } );
+          formApi.setErrorMap( { onChange: { fields: mapServerErrors( errors.errors ) } } );
         }
         onError?.();
       }

@@ -6,7 +6,7 @@ export const useAddress = () => {
 
   const address = useQuery( {
     queryKey: [ 'address' ],
-    queryFn: () => addressService.get(),
+    queryFn: () => addressService.getMyAddress(),
     placeholderData: data => data
   } );
 

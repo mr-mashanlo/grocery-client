@@ -4,6 +4,8 @@ import { type DetailedHTMLProps, type FC, type FormEvent, type FormHTMLAttribute
 import { twMerge } from 'tailwind-merge';
 import z from 'zod';
 
+import { SquareIcon } from '@/shared/icons';
+
 import { useAddressForm } from '../model/use-address-form';
 
 type Props = DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
@@ -31,26 +33,31 @@ const AddressForm: FC<Props> = ( { className, ...others } ) => {
           <form.Field name="region" validators={{ onChange: z.string().min( 3, 'Region must be at least 3 characters long' ) }} children={field =>
             <Field className="block relative">
               <Input type="text" name={field.name} value={field.state.value} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="Jambyl" className="peer w-full p-5 pl-14 rounded-2xl bg-zinc-100 placeholder:text-zinc-400/50 focus:bg-transparent data-[error=true]:outline-rose-500" />
+              <SquareIcon className="w-5 h-5 fill-zinc-400/50 peer-focus:fill-black absolute top-1/2 left-5 -translate-y-1/2" aria-hidden="true" />
             </Field> }
           />
           <form.Field name="city" validators={{ onChange: z.string().min( 3, 'City must be at least 3 characters long' ) }} children={field =>
             <Field className="block relative">
               <Input type="text" name={field.name} value={field.state.value} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="Sortobe" className="peer w-full p-5 pl-14 rounded-2xl bg-zinc-100 placeholder:text-zinc-400/50 focus:bg-transparent data-[error=true]:outline-rose-500" />
+              <SquareIcon className="w-5 h-5 fill-zinc-400/50 peer-focus:fill-black absolute top-1/2 left-5 -translate-y-1/2" aria-hidden="true" />
             </Field> }
           />
           <form.Field name="street" validators={{ onChange: z.string().min( 3, 'Street must be at least 3 characters long' ) }} children={field =>
             <Field className="block relative">
               <Input type="text" name={field.name} value={field.state.value} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="Dank" className="peer w-full p-5 pl-14 rounded-2xl bg-zinc-100 placeholder:text-zinc-400/50 focus:bg-transparent data-[error=true]:outline-rose-500" />
+              <SquareIcon className="w-5 h-5 fill-zinc-400/50 peer-focus:fill-black absolute top-1/2 left-5 -translate-y-1/2" aria-hidden="true" />
             </Field> }
           />
           <form.Field name="address" validators={{ onChange: z.string().min( 1, 'Address must be at least 1 characters long' ) }} children={field =>
             <Field className="block relative">
               <Input type="text" name={field.name} value={field.state.value} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="31/1 2 94" className="peer w-full p-5 pl-14 rounded-2xl bg-zinc-100 placeholder:text-zinc-400/50 focus:bg-transparent data-[error=true]:outline-rose-500" />
+              <SquareIcon className="w-5 h-5 fill-zinc-400/50 peer-focus:fill-black absolute top-1/2 left-5 -translate-y-1/2" aria-hidden="true" />
             </Field> }
           />
           <form.Field name="phone" validators={{ onChange: z.string().length( 10, 'Phone must be 10 characters' ) }} children={field =>
             <Field className="block relative">
               <Input type="text" name={field.name} value={field.state.value} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="7761234567" className="peer w-full p-5 pl-14 rounded-2xl bg-zinc-100 placeholder:text-zinc-400/50 focus:bg-transparent data-[error=true]:outline-rose-500" />
+              <SquareIcon className="w-5 h-5 fill-zinc-400/50 peer-focus:fill-black absolute top-1/2 left-5 -translate-y-1/2" aria-hidden="true" />
             </Field> }
           />
           <form.Subscribe selector={state => [ state.canSubmit, state.isSubmitting ]} children={( [ canSubmit, isSubmitting ] ) =>

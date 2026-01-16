@@ -8,17 +8,14 @@ export const ProductSchema = z.object( {
   title: z.string(),
   description: z.string(),
   price: z.number(),
+  stock: z.number(),
+  unit: z.enum( [ 'pc', 'kg' ] ),
   archived: z.boolean(),
   category: z.object( {
     title: z.string(),
     slug: z.string()
   } ),
-  stock: z.object( {
-    quantity: z.number()
-  } ).optional(),
-  quantity: z.object( {
-    quantity: z.number()
-  } ).optional()
+  quantity: z.number().optional()
 } );
 
 export type Product = z.infer<typeof ProductSchema>;

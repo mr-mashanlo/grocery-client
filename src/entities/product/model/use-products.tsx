@@ -9,7 +9,7 @@ export const useProducts = ( params?: Record<string, string> ) => {
 
   const products = useQuery( {
     queryKey: [ 'products', category ],
-    queryFn: () => productService.getMany( params ),
+    queryFn: () => productService.getAllProducts( params ),
     placeholderData: data => data
   } );
 

@@ -22,10 +22,6 @@ class AuthService {
     return kyInstance( 'auth/refresh', { method: 'get' } );
   };
 
-  me = (): Promise<KyResponse<Auth>> => {
-    return kyInstance( 'auth/me', { method: 'get' } );
-  };
-
 }
 
 export const authService = new AuthService();

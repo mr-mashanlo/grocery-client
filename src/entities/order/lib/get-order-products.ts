@@ -5,7 +5,7 @@ export const getOrderProducts = ( orderProducts: Order, shopProducts: Array<Prod
 
   return orderProducts.products.reduce( ( acc: Array<Product>, orderProduct ) => {
     const product = shopProducts.find( shopProduct => shopProduct._id === orderProduct._id );
-    if ( product ) acc.push( { ...product, quantity: { quantity: orderProduct.quantity }, price: orderProduct.price } );
+    if ( product ) acc.push( { ...product, quantity: orderProduct.quantity, price: orderProduct.price } );
     return acc;
   }, [] );
 

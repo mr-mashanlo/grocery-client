@@ -6,7 +6,7 @@ export const useProduct = ( id: string ) => {
 
   const product = useQuery( {
     queryKey: [ 'product', id ],
-    queryFn: () => productService.get( id ),
+    queryFn: () => productService.getProductById( id ),
     placeholderData: data => data
   } );
 

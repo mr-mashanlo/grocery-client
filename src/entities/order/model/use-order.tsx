@@ -6,7 +6,7 @@ export const useOrder = ( id: string  ) => {
 
   const order = useQuery( {
     queryKey: [ 'order', id ],
-    queryFn: () => orderService.get( id ),
+    queryFn: () => orderService.getOrderById( id ),
     placeholderData: data => data
   } );
 
