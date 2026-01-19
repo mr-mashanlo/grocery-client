@@ -2,7 +2,7 @@ import { type FC } from 'react';
 
 import { getCartProducts, useCartStore } from '@/entities/cart';
 import { ProductCard, useProducts } from '@/entities/product';
-import { CartControls } from '@/features/cart-controls';
+import { UpdateQuantityForm } from '@/features/update-quantity-form';
 
 const CartProducts: FC = () => {
   const { products: cartProducts } = useCartStore();
@@ -16,7 +16,7 @@ const CartProducts: FC = () => {
       {products.length
         ?
         <div className="grid sm:grid-cols-3 gap-4 sm:gap-7.5">
-          {products.map( product => <ProductCard key={product._id} product={product} controls={<CartControls productId={product._id} quantity={product.stock} />} quantity={product.stock} /> )}
+          {products.map( product => <ProductCard key={product._id} product={product} controls={<UpdateQuantityForm productId={product._id} quantity={product.stock} />} quantity={product.stock} /> )}
         </div>
         :
         <div className="text-center">
