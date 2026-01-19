@@ -1,3 +1,4 @@
 import { kyInstance, UnauthorizedError } from './ky';
+import { mapServerErrors } from './map-server-errors';
 
-export { kyInstance, UnauthorizedError };
+export { kyInstance, mapServerErrors, UnauthorizedError };
