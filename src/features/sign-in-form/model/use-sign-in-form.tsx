@@ -2,7 +2,7 @@ import { useForm } from '@tanstack/react-form';
 import { HTTPError } from 'ky';
 
 import { useAuth } from '@/entities/auth';
-import { mapServerErrors } from '@/shared/mappers';
+import { mapServerErrors } from '@/shared/libs';
 
 interface Props {
   onSuccess?: () => void,

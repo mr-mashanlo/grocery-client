@@ -1,14 +1,17 @@
 import { Button, Field, Fieldset, Input, Legend } from '@headlessui/react';
 import { useStore } from '@tanstack/react-form';
-import { type FC, type FormEvent, useState } from 'react';
+import { type DetailedHTMLProps, type FC, type FormEvent, type FormHTMLAttributes, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 import z from 'zod';
 
 import { ClosedEyeIcon, EmailIcon, LockIcon, OpenEyeIcon, WarningIcon } from '@/shared/icons';
 
 import { useSignInForm } from '../model/use-sign-in-form';
 
-const SignInForm: FC = () => {
+type Props = DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
+
+const SignInForm: FC<Props> = ( { className, ...others } ) => {
   const navigate = useNavigate();
   const form = useSignInForm( { onSuccess: () => navigate( '/', { replace: true } ) } );
   const canSubmit = useStore( form.store, state => state.canSubmit );
@@ -30,7 +33,7 @@ const SignInForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="w-full sm:w-84 relative">
+    <form onSubmit={handleFormSubmit} className={twMerge( 'w-full sm:w-84 relative', className )} {...others}>
       <Fieldset>
         <Legend className="mb-8 text-3xl text-center font-bold">Sign in</Legend>
         <div className="grid gap-4 sm:gap-5">
