@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { orderService } from '../api/api';
 
-export const useOrders = ( params?: Record<string, string> ) => {
+export const useMyOrders = ( params?: Record<string, string> ) => {
 
   const orders = useQuery( {
-    queryKey: [ 'orders' ],
-    queryFn: () => orderService.getAllOrders( params ),
+    queryKey: [ 'orders', 'my' ],
+    queryFn: () => orderService.getMyOrders( params ),
     placeholderData: data => data
   } );
 

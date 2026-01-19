@@ -9,13 +9,25 @@ class OrderService {
     return await response.json();
   };
 
+  getAllOrders = async ( params?: Record<string, string> ): Promise<Array<Order>> => {
+    const searchParams = new URLSearchParams( params );
+    const response = await kyInstance( `orders/all?${searchParams}`, { method: 'get' } );
+    return await response.json();
+  };
+
+  getMyOrders = async ( params?: Record<string, string> ): Promise<Array<Order>> => {
+    const searchParams = new URLSearchParams( params );
+    const response = await kyInstance( `orders?${searchParams}`, { method: 'get' } );
+    return await response.json();
+  };
+
   getOrderById = async ( id: string ): Promise<Order> => {
     const response = await kyInstance( `orders/${id}`, { method: 'get' } );
     return await response.json();
   };
 
-  getAllOrders = async ( params?: Record<string, string> ): Promise<Array<Order>> => {
-    const response = await kyInstance( `orders?${params}`, { method: 'get' } );
+  updateOrderStatus = async ( id: string, status: 'Processing' | 'Shipped' | 'Delivered' | 'Canceled' ): Promise<Order> => {
+    const response = await kyInstance( `orders/${id}`, { method: 'put', body: JSON.stringify( { status } ) } );
     return await response.json();
   };
 
