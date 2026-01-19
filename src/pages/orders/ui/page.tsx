@@ -1,7 +1,6 @@
 import { type FC } from 'react';
-import { Link } from 'react-router';
 
-import { OrderProducts } from '@/widgets/order-products';
+import { MyOrders } from '@/widgets/my-orders';
 
 export const OrdersPage: FC = () => {
   return (
@@ -15,11 +14,7 @@ export const OrdersPage: FC = () => {
       <meta property="twitter:card" content="summary" />
 
       <div className="px-4 py-10 pb-19 sm:p-37.5">
-        <OrderProducts />
-        <div className="w-full sm:w-150 grid grid-cols-3 items-center fixed bottom-0 left-0">
-          <div className="h-full col-span-2 bg-zinc-100"></div>
-          <Link to="/" className="py-5 text-center bg-black text-white">Back</Link>
-        </div>
+        <MyOrders />
       </div>
     </>
   );

@@ -1,12 +1,11 @@
 import { type FC } from 'react';
-import { Link } from 'react-router';
 
 import { useAddress } from '@/entities/address';
 import { useCartStore } from '@/entities/cart';
-import { AddressForm } from '@/features/address-form';
-import { OrderForm } from '@/features/order-form';
+import { CreateAddressForm } from '@/features/create-address-form';
+import { CreateOrderForm } from '@/features/create-order-form';
+import { PageControls } from '@/shared/ui';
 import { CheckoutProducts } from '@/widgets/checkout-products';
-import { PageControls } from '@/widgets/page-controls';
 
 export const CheckoutPage: FC = () => {
   const { address } = useAddress();
@@ -24,8 +23,11 @@ export const CheckoutPage: FC = () => {
 
       <div className="px-4 py-10 pb-19 sm:p-37.5">
         <CheckoutProducts />
-        <AddressForm className="mt-8 sm:mt-37.5" />
-        <PageControls controls={address.data && getQuantities() ? <OrderForm /> : <Link to="/" className="py-5 text-center bg-black text-white">Back</Link>} />
+        <CreateAddressForm className="mt-8 sm:mt-37.5" />
+        <PageControls
+          form={<p className="p-5 bg-zinc-100">Total: $0, Quantity: {getQuantities()}</p>}
+          button={address.data && getQuantities() ? <CreateOrderForm /> : null}
+        />
       </div>
     </>
   );
