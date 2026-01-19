@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 
+import { adminOrderRouter } from '@/pages/admin-order';
+import { adminOrdersRouter } from '@/pages/admin-orders';
 import { cartRouter } from '@/pages/cart';
 import { checkoutRouter } from '@/pages/checkout';
 import { homeRouter } from '@/pages/home';
@@ -17,7 +19,18 @@ const router = createBrowserRouter( [
     children: [
       {
         element: <MainLayout />,
-        children: [ signInRouter, signUpRouter, homeRouter, cartRouter, checkoutRouter, ordersRouter, orderRouter, notFoundRouter ]
+        children: [
+          signInRouter,
+          signUpRouter,
+          homeRouter,
+          cartRouter,
+          checkoutRouter,
+          ordersRouter,
+          orderRouter,
+          adminOrdersRouter,
+          adminOrderRouter,
+          notFoundRouter
+        ]
       }
     ]
   }
