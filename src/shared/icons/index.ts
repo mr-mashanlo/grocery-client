@@ -1,3 +1,4 @@
+import CloseIcon from './close';
 import ClosedEyeIcon from './closed-eye';
 import EmailIcon from './email';
 import LockIcon from './lock';
@@ -7,6 +8,7 @@ import WarningIcon from './warning';
 
 export {
   ClosedEyeIcon,
+  CloseIcon,
   EmailIcon,
   LockIcon,
   OpenEyeIcon,
