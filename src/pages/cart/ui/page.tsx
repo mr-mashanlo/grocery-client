@@ -2,7 +2,6 @@ import { type FC } from 'react';
 import { Link } from 'react-router';
 
 import { useCartStore } from '@/entities/cart';
-import { PageControls } from '@/shared/ui';
 import { CartProducts } from '@/widgets/cart-products';
 
 export const CartPage: FC = () => {
@@ -20,10 +19,10 @@ export const CartPage: FC = () => {
 
       <div className="px-4 py-10 pb-19 sm:p-37.5">
         <CartProducts />
-        <PageControls
-          form={<p className="p-5 bg-zinc-100">Total: $0, Quantity: {getQuantities()}</p>}
-          button={getQuantities() ? <Link to="/checkout" className="block w-full p-5 bg-black text-white text-center">Checkout</Link> : null}
-        />
+        <div className="flex items-center fixed bottom-0 left-0">
+          <div className="w-90 h-15"><p className="p-5 bg-zinc-100">Total: $0, Quantity: {getQuantities()}</p></div>
+          <div className="w-45 h-15">{getQuantities() ? <Link to="/checkout" className="block w-full p-5 bg-black text-white text-center">Checkout</Link> : null}</div>
+        </div>
       </div>
     </>
   );
