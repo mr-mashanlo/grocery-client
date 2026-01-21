@@ -1,11 +1,16 @@
 import { type FC } from 'react';
+import { useSearchParams } from 'react-router';
 
 import { ProductCard, useFilterStore, useProducts } from '@/entities/product';
 import { UpdateQuantityForm } from '@/features/update-quantity-form';
 
 const ShopProducts: FC = () => {
+  const [ searchParams ] = useSearchParams();
+  const sort = searchParams.get( 'sort' ) || '';
+  const order = searchParams.get( 'order' ) || '';
+
   const { category } = useFilterStore();
-  const { products } = useProducts( { category: category._id, limit: '48' } );
+  const { products } = useProducts( { limit: '48', category: category._id, sort, order } );
 
   return (
     <section>
