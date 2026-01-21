@@ -9,9 +9,6 @@ interface Store {
 export const useFilterStore = create( persist<Store>( set => ( {
 
   category: { _id: '', title: 'All products', slug: 'all' },
-
-  setCategory: ( category ) => {
-    return set( { category } );
-  }
+  setCategory: ( category ) => set( { category } )
 
 } ), { name: 'filter' } ) );

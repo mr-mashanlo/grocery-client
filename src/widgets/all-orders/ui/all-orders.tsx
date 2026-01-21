@@ -12,7 +12,7 @@ const AllOrders: FC = () => {
       {orders.data?.length
         ?
         <div className="grid sm:grid-cols-3 gap-4 sm:gap-7.5">
-          {orders.data?.map( order => <OrderCard key={order._id} order={order} /> )}
+          {orders.data?.map( order => <OrderCard key={order._id} order={order} isAdmin={true} /> )}
         </div>
         :
         <div className="text-center">
