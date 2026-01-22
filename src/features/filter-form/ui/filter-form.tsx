@@ -2,6 +2,7 @@ import { Button, Fieldset, Listbox, ListboxButton, ListboxOption, ListboxOptions
 import { type DetailedHTMLProps, type FC, type FormHTMLAttributes } from 'react';
 import { useSearchParams } from 'react-router';
 
+import { useCategories } from '@/entities/category';
 import { CloseIcon } from '@/shared/icons';
 
 type Props = DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
@@ -18,9 +19,19 @@ const orderLibrary = {
 };
 
 const FilterForm: FC<Props> = ( props ) => {
+  const { categories } = useCategories();
   const [ searchParams, setSearchParams ] = useSearchParams();
+  const category = searchParams.get( 'category' ) as string;
   const sort = searchParams.get( 'sort' ) as 'title' | 'price' | 'createdAt';
   const order = searchParams.get( 'order' ) as 'asc' | 'desc';
+
+  const handleCategoryChange = ( value: string ) => {
+    setSearchParams( searchParams => { searchParams.set( 'category', value ); return searchParams; } );
+  };
+
+  const handleCategoryDelete = () => {
+    setSearchParams( searchParams => { searchParams.delete( 'category' ); return searchParams; } );
+  };
 
   const handleSortChange = ( value: string ) => {
     setSearchParams( searchParams => { searchParams.set( 'sort', value ); return searchParams; } );
@@ -39,8 +50,18 @@ const FilterForm: FC<Props> = ( props ) => {
   };
 
   return (
-    <form className="h-full grid grid-cols-2 items-center" {...props}>
-      <Fieldset className="relative">
+    <form className="h-full flex items-center" {...props}>
+      <Fieldset className="w-90 relative">
+        <Listbox value={category} onChange={value => handleCategoryChange( value || '' )}>
+          <ListboxButton className="w-full p-5 text-left bg-zinc-100 cursor-pointer outline-0">{categories.data?.find( item => item.slug === category )?.title || 'Category'}</ListboxButton>
+          <ListboxOptions anchor="top" transition className="w-(--button-width) p-5 flex flex-col gap-5 bg-zinc-100 transition duration-100 ease-in data-leave:data-closed:opacity-0 outline-0">
+            {categories.data?.map( category => <ListboxOption key={category._id} value={category.slug} className="group flex items-center gap-2 cursor-pointer">{category.title}</ListboxOption> )}
+          </ListboxOptions>
+        </Listbox>
+        {category && <Button onClick={() => handleCategoryDelete()} className="w-4 h-4 flex items-center justify-center absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer"><CloseIcon className="w-3 h-3 fill-black stroke-1 stroke-black" /></Button>}
+      </Fieldset>
+
+      <Fieldset className="w-45 relative">
         <Listbox value={sort} onChange={value => handleSortChange( value || '' )}>
           <ListboxButton className="w-full p-5 text-left bg-zinc-200 cursor-pointer outline-0">{sortLibrary[sort] || 'Sort'}</ListboxButton>
           <ListboxOptions anchor="top" transition className="w-(--button-width) p-5 flex flex-col gap-5 bg-zinc-100 transition duration-100 ease-in data-leave:data-closed:opacity-0 outline-0">
@@ -52,7 +73,7 @@ const FilterForm: FC<Props> = ( props ) => {
         </Listbox>
       </Fieldset>
 
-      <Fieldset className="relative">
+      <Fieldset className="w-45 relative">
         <Listbox value={order} onChange={value => handleOrderChange( value || '' )}>
           <ListboxButton className="w-full p-5 text-left bg-zinc-300 cursor-pointer outline-0">{orderLibrary[order] || 'Order'}</ListboxButton>
           <ListboxOptions anchor="top" transition className="w-(--button-width) p-5 flex flex-col gap-5 bg-zinc-100 transition duration-100 ease-in data-leave:data-closed:opacity-0 outline-0">

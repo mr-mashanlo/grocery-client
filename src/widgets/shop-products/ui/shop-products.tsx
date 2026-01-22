@@ -1,20 +1,22 @@
 import { type FC } from 'react';
 import { useSearchParams } from 'react-router';
 
-import { ProductCard, useFilterStore, useProducts } from '@/entities/product';
+import { useCategories } from '@/entities/category';
+import { ProductCard, useProducts } from '@/entities/product';
 import { UpdateQuantityForm } from '@/features/update-quantity-form';
 
 const ShopProducts: FC = () => {
+  const { categories } = useCategories();
   const [ searchParams ] = useSearchParams();
+  const category = searchParams.get( 'category' ) || '';
   const sort = searchParams.get( 'sort' ) || '';
   const order = searchParams.get( 'order' ) || '';
 
-  const { category } = useFilterStore();
-  const { products } = useProducts( { limit: '48', category: category._id, sort, order } );
+  const { products } = useProducts( { limit: '48', category, sort, order } );
 
   return (
     <section>
-      <h2 className="mb-8 sm:mb-18 text-4xl font-bold">{category.title}</h2>
+      <h2 className="mb-8 sm:mb-18 text-4xl font-bold">{categories.data?.find( item => item.slug === category )?.title || 'All Products'}</h2>
       {products.data?.length
         ?
         <div className="grid sm:grid-cols-3 gap-4 sm:gap-7.5">
