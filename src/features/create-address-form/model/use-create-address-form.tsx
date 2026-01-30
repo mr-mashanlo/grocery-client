@@ -27,6 +27,7 @@ export const useCreateAddressForm = () => {
         } else {
           await create.mutateAsync( value );
         }
+        form.reset();
       } catch ( error ) {
         if ( error instanceof HTTPError ) {
           const errors = await error.response.json();

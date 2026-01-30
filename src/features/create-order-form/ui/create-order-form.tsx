@@ -1,4 +1,5 @@
 import { Button } from '@headlessui/react';
+import { ChevronRight } from 'lucide-react';
 import { type DetailedHTMLProps, type FC, type FormEvent, type FormHTMLAttributes } from 'react';
 
 import { useCreateOrderForm } from '../model/use-create-order-form';
@@ -16,9 +17,14 @@ const CreateOrderForm: FC<Props> = ( props ) => {
 
   return (
     <form onSubmit={handleFormSubmit} {...props}>
-      <form.Subscribe selector={state => [ state.canSubmit, state.isSubmitting ]} children={( [ canSubmit, isSubmitting ] ) =>
-        <Button disabled={!canSubmit} type="submit" className="w-full py-5 text-center bg-black text-white cursor-pointer disabled:cursor-default disabled:opacity-70">{isSubmitting ? '•••' : 'Buy'}</Button> }
-      />
+      <form.Subscribe selector={state => [ state.canSubmit, state.isSubmitting ]}>
+        {( [ canSubmit, isSubmitting ] ) => (
+          <Button disabled={!canSubmit} type="submit" className="flex items-center gap-2 cursor-pointer disabled:cursor-default disabled:opacity-70">
+            {isSubmitting ? '•••' : 'Buy now'}
+            <ChevronRight aria-hidden="true" strokeWidth={3} className="size-3" />
+          </Button>
+        )}
+      </form.Subscribe>
     </form>
   );
 };

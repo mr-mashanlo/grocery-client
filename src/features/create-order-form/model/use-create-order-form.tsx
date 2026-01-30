@@ -16,10 +16,10 @@ export const useCreateOrderForm = () => {
   const { products: cartProducts, getQuantities, reset } = useCartStore();
   const { products: shopProducts } = useProducts( { limit: '48' } );
 
-  const products = cartProducts.map( cartProduct => ( { ...cartProduct, price: shopProducts.data?.find( shopProduct => cartProduct._id === shopProduct._id )?.price || 0 } ) );
+  const products = cartProducts.map( cartProduct => ( { ...cartProduct, price: shopProducts.data?.data.find( shopProduct => cartProduct._id === shopProduct._id )?.price || 0 } ) );
 
   const totalPrice = cartProducts.reduce( ( acc, cartProduct ) => {
-    const shopProduct = shopProducts.data?.find( shopProduct => cartProduct._id === shopProduct._id );
+    const shopProduct = shopProducts.data?.data.find( shopProduct => cartProduct._id === shopProduct._id );
     return acc = acc + cartProduct.quantity * ( shopProduct?.price || 0 );
   }, 0 );
 
@@ -27,7 +27,7 @@ export const useCreateOrderForm = () => {
     onSubmit: async ( { formApi } ) => {
       try {
         const order = await create.mutateAsync( { products, address: address.data?._id || '', totalPrice, totalQuantity: getQuantities() } );
-        navigate( `/order/${order._id}`, { replace: true } );
+        navigate( `/orders/${order._id}`, { replace: true } );
         reset();
       } catch ( error ) {
         if ( error instanceof HTTPError ) {
