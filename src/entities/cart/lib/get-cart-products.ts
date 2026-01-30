@@ -4,7 +4,7 @@ import  { type Cart } from '../model/schema';
 export const getCartProducts = ( cartProducts: Array<Cart>, shopProducts: Array<Product> ) => {
 
   return cartProducts.reduce( ( acc: Array<Product>, cartProduct ) => {
-    const product = shopProducts.find( shopProduct => shopProduct._id === cartProduct._id );
+    const product = shopProducts.find( shopProduct => shopProduct._id === cartProduct.product );
     if ( product ) acc.push( { ...product, quantity: cartProduct.quantity } );
     return acc;
   }, [] );

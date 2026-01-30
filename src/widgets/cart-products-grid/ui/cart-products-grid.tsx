@@ -12,14 +12,18 @@ type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 const CartProductsGrid: FC<Props> = ( props ) => {
   const { products: cartProducts, getQuantities } = useCartStore();
   const { products: shopProducts } = useProducts( { limit: '0' } );
-
   const products = getCartProducts( cartProducts, shopProducts.data?.data || [] );
 
   return (
     <section {...props}>
       <h2 className="mb-25 sm:mb-50 text-xl sm:text-2xl font-bold text-center">Cart</h2>
       <div className="grid sm:grid-cols-3 gap-4 sm:gap-7.5">
-        {products.map( product => <ProductCard key={product._id} product={product} controls={<UpdateQuantityForm productId={product._id} quantity={product.stock} />} /> )}
+        {shopProducts.isLoading
+          ?
+          Array.from( { length: 9 } ).map( ( _, index ) => <div key={index} className="w-full h-25 bg-zinc-100 rounded-2xl animate-pulse"></div> )
+          :
+          products.map( product => <ProductCard key={product._id} product={product} controls={<UpdateQuantityForm productId={product._id} quantity={product.stock} />} /> )
+        }
       </div>
       {getQuantities() > 0 &&
         <div className="pt-8 sm:pt-12.5 flex items-center justify-between gap-8 sm:gap-15">

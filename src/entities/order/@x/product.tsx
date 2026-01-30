@@ -1,3 +1,3 @@
-import { type Product } from '@/entities/product';
+import { type Product, ProductSchema } from '@/entities/product';
 
-export { type Product };
+export { type Product, ProductSchema };
