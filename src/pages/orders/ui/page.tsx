@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 
-import { MyOrders } from '@/widgets/my-orders';
+import { Header } from '@/widgets/header';
+import { OrdersGrid } from '@/widgets/orders-grid';
 
 export const OrdersPage: FC = () => {
   return (
@@ -13,8 +14,9 @@ export const OrdersPage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <div className="px-4 py-10 pb-19 sm:p-37.5">
-        <MyOrders />
+      <div className="px-4 py-8 sm:px-25 sm:py-12.5">
+        <Header />
+        <OrdersGrid className="mt-25 sm:mt-50" />
       </div>
     </>
   );

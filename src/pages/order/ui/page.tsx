@@ -1,5 +1,6 @@
 import { type FC } from 'react';
 
+import { Header } from '@/widgets/header';
 import { SingleOrder } from '@/widgets/single-order';
 
 export const OrderPage: FC = () => {
@@ -13,8 +14,11 @@ export const OrderPage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <div className="px-4 py-10 pb-19 sm:p-37.5">
-        <SingleOrder />
+      <div className="px-4 py-8 sm:px-25 sm:py-12.5">
+        <Header />
+        <SingleOrder className="mt-25 sm:mt-50" />
+
+
       </div>
     </>
   );
