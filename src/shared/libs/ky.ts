@@ -8,7 +8,7 @@ export const kyInstance = ky.create( {
   headers: { 'Content-Type': 'application/json' },
   retry: {
     limit: 1,
-    statusCodes: [ 498, 499, 400 ],
+    statusCodes: [ 499, 400 ],
     methods: [ 'get', 'post', 'put', 'delete' ]
   },
   hooks: {
