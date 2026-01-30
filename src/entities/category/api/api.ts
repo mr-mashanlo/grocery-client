@@ -1,10 +1,10 @@
 import { kyInstance } from '@/shared/libs';
 
-import { type Category } from '../model/schema';
+import { type PaginatedCategory } from '../model/schema';
 
 class CategoryService {
 
-  getAllCategories = async ( params?: Record<string, string> ): Promise<Array<Category>> => {
+  getAllCategories = async ( params?: Record<string, string> ): Promise<PaginatedCategory> => {
     const searchParams = new URLSearchParams( params );
     const response = await kyInstance( `categories?${searchParams}`, { method: 'get' } );
     return await response.json();

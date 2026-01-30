@@ -1,6 +1,6 @@
 import { kyInstance } from '@/shared/libs';
 
-import { type Order, type OrderDTO } from '../model/schema';
+import { type Order, type OrderDTO, type PaginatedOrders } from '../model/schema';
 
 class OrderService {
 
@@ -9,13 +9,13 @@ class OrderService {
     return await response.json();
   };
 
-  getAllOrders = async ( params?: Record<string, string> ): Promise<Array<Order>> => {
+  getAllOrders = async ( params?: Record<string, string> ): Promise<PaginatedOrders> => {
     const searchParams = new URLSearchParams( params );
     const response = await kyInstance( `orders/all?${searchParams}`, { method: 'get' } );
     return await response.json();
   };
 
-  getMyOrders = async ( params?: Record<string, string> ): Promise<Array<Order>> => {
+  getMyOrders = async ( params?: Record<string, string> ): Promise<PaginatedOrders> => {
     const searchParams = new URLSearchParams( params );
     const response = await kyInstance( `orders?${searchParams}`, { method: 'get' } );
     return await response.json();

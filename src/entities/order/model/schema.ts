@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { type PaginatedResponse } from '@/shared/types';
+
 export const OrderDTOSchema = z.object( {
   address: z.string(),
   products: z.array( z.object( { _id: z.string(), price: z.number(), quantity: z.number() } ) ),
@@ -27,3 +29,5 @@ export const OrderSchema = z.object( {
 export type Order = z.infer<typeof OrderSchema>;
 
 export type OrderDTO = z.infer<typeof OrderDTOSchema>;
+
+export type PaginatedOrders = PaginatedResponse<Order>

@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { type PaginatedResponse } from '@/shared/types';
+
 export const ProductSchema = z.object( {
   _id: z.string(),
   image: z.string(),
@@ -17,3 +19,5 @@ export const ProductSchema = z.object( {
 } );
 
 export type Product = z.infer<typeof ProductSchema>;
+
+export type PaginatedProducts = PaginatedResponse<Product>
