@@ -15,10 +15,10 @@ const ProductFilterForm: FC<Props> = ( { className, ...others } ) => {
   const [ searchParams, setSearchParams ] = useSearchParams();
 
   return (
-    <form className={twMerge( 'hidden sm:block',  className )} {...others}>
+    <form className={twMerge( className )} {...others}>
 
-      <Fieldset className="flex sm:items-center gap-8 sm:gap-15 flex-col sm:flex-row">
-        <Field className="w-full mr-auto flex items-center gap-2 relative">
+      <Fieldset className="flex sm:items-center justify-between gap-8 sm:gap-15">
+        <Field className="w-full mr-auto hidden sm:flex items-center gap-2 relative">
           <Label className="sr-only">Search</Label>
           <Square aria-hidden="true" className="size-3 fill-zinc-200 stroke-zinc-200" />
           <Input name="search" placeholder="Search..." className="block w-full sm:w-80 outline-0 leading-none" />

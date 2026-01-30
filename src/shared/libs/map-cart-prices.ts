@@ -9,7 +9,7 @@ export const mapCartPrices = ( cartProducts: CartProducts, storeProducts: StoreP
 
     if ( !product ) return acc;
 
-    return acc = acc + cartProduct.quantity * product.price;
+    return acc = Math.round( acc + cartProduct.quantity * product.price );
   }, 0 );
 
 };

@@ -73,9 +73,9 @@ const CreateAddressForm: FC<Props> = ( { className, ...others } ) => {
         <form.Subscribe selector={state => [ state.canSubmit, state.isSubmitting ]}>
           {( [ canSubmit, isSubmitting ] ) =>
             <div className="flex items-center justify-between border-t border-zinc-200 bg-zinc-100 rounded-b-xl">
-              <p className="p-5">{canSubmit ? 'Delivery address is required to place an order' : <span className="text-red-400">{getErrorMessages()[0]}</span>}</p>
+              <p className="p-5">{canSubmit ? <span className="line-clamp-1">Delivery address is required to place an order</span> : <span className="text-red-400 line-clamp-1">{getErrorMessages()[0]}</span>}</p>
               <p className="p-5">
-                <Button disabled={!canSubmit} type="submit" className={twMerge( 'flex items-center gap-2 cursor-pointer disabled:cursor-default disabled:opacity-50', form.state.isTouched ? 'text-emerald-600' : '' )}>
+                <Button disabled={!canSubmit} type="submit" className={twMerge( 'flex items-center gap-2 cursor-pointer disabled:cursor-default disabled:opacity-50', form.state.isTouched ? 'text-emerald-700' : '' )}>
                   {isSubmitting ? '•••' : 'Save'}
                   <ChevronRight aria-hidden="true" strokeWidth={3} className="size-3" />
                 </Button>

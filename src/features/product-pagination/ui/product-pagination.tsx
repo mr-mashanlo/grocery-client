@@ -31,7 +31,7 @@ const ProductPagination: FC<Props> = ( { className, total, limit, page, ...other
   };
 
   return (
-    <nav className={twMerge( 'flex items-center gap-8 sm:gap-15 flex-col sm:flex-row-reverse', className )} {...others}>
+    <nav className={twMerge( 'flex items-center gap-6 sm:gap-15 flex-col sm:flex-row-reverse', className )} {...others}>
       <ul className="sm:ml-auto flex items-center gap-15">
         <li>
           <Button onClick={handlePrevButtonClick} disabled={page <= 1} className="flex items-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-default">
