@@ -1,7 +1,8 @@
 import { type FC } from 'react';
 
+import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';
-import { ProductsGrid } from '@/widgets/products-grid';
+import { ProductGrid } from '@/widgets/product/grid';
 
 export const HomePage: FC = () => {
   return (
@@ -14,10 +15,16 @@ export const HomePage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <div className="px-4 py-8 sm:px-25 sm:py-12.5">
-        <Header />
-        <ProductsGrid className="mt-25 sm:mt-50" />
-      </div>
+      <Header />
+      <section className="mx-4 my-8 sm:mx-10 sm:my-20">
+        <h1 className="mb-3 text-xl sm:text-2xl font-semibold">Workspace sale</h1>
+        <p className="max-w-2xl leading-[200%]">At tempore commodi quibusdam sed ea veritatis temporibus accusantium qui corporis obcaecati aperiam, eveniet, quisquam recusandae magni ducimus error possimus.</p>
+      </section>
+      <ProductGrid />
+      <section className="mx-4 my-8 sm:mx-10 sm:my-20">
+        <p className="max-w-2xl mx-auto text-center leading-[200%]">Qui mollitia accusamus praesentium perferendis, neque amet et pariatur ratione velit natus sapiente. Commodi sequi itaque, voluptate voluptas provident architecto</p>
+      </section>
+      <Footer />
     </>
   );
 };
