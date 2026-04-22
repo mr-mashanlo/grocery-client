@@ -1,5 +1,6 @@
-import { getCartProducts } from './lib/get-cart-products';
-import { getTotalPrice } from './lib/get-total-price';
+import { type Cart, CartSchema, type CreateCartDTO, CreateCartSchema } from './model/schema';
 import { useCartStore } from './model/store';
 
-export { getCartProducts, getTotalPrice, useCartStore };
+export { type Cart, CartSchema, type CreateCartDTO, CreateCartSchema };
+
+export { useCartStore };

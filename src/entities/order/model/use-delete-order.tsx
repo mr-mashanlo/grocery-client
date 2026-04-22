@@ -1,15 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { orderService } from '../api/api';
-import { type CreateOrderDTO } from './schema';
 
-export const useCreateOrder = () => {
+export const useDeleteOrder = ( id: string ) => {
   const queryClient = useQueryClient();
 
-  const create = useMutation( {
-    mutationFn: ( data: CreateOrderDTO ) => orderService.createOrder( data ),
+  const remove = useMutation( {
+    mutationFn: () => orderService.deleteOrder( id ),
     onSuccess: () => queryClient.invalidateQueries( { queryKey: [ 'orders' ] } )
   } );
 
-  return { create };
+  return { remove };
 };

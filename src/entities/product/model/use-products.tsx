@@ -6,7 +6,7 @@ export const useProducts = ( params?: Record<string, string> ) => {
 
   const products = useQuery( {
     queryKey: [ 'products', params ],
-    queryFn: () => productService.getAllProducts( params ),
+    queryFn: () => productService.getProducts( params ),
     placeholderData: data => data
   } );
 

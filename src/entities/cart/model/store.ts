@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { type Cart } from './schema';
+import { type Cart, type CreateCartDTO } from './schema';
 
 interface Store {
   products: Array<Cart>,
-  increase: ( product: string ) => void,
-  decrease: ( product: string ) => void,
-  getQuantity: ( product: string ) => number,
-  getQuantities: () => number,
+  increase: ( product: CreateCartDTO ) => void,
+  decrease: ( product: CreateCartDTO ) => void,
+  getTotalQuantity: () => number,
+  getTotalPrice: () => number,
   reset: () => void
 }
 
@@ -16,27 +16,36 @@ export const useCartStore = create( persist<Store>( ( set, get ) => ( {
 
   products: [],
 
-  increase: ( _id ) => {
-    const exists = get().products.find( item => item.product === _id );
-    if ( !exists ) return set( { products: [ ...get().products, { product: _id, quantity: 1 } ] } );
-    const updatedProducts = get().products.map( item => item.product === _id ? { ...item, quantity: item.quantity + 1 } : item );
-    return set( { products: updatedProducts } );
+  increase: ( product: CreateCartDTO ) => {
+    const products = get().products;
+    const exists = products.find( item => item._id === product._id );
+
+    if ( exists ) {
+      return set( { products: products.map( item => item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item ) } );
+    } else {
+      return set( { products: [ ...products, { ...product, quantity: 1 } ] } );
+    }
   },
 
-  decrease: ( _id ) => {
-    const exists = get().products.find( item => item.product === _id );
-    if ( !exists ) return;
-    if ( exists.quantity <= 1 ) return set( { products: get().products.filter( item => item.product !== _id ) } );
-    const updatedProducts = get().products.map( item => item.product === _id ? { ...item, quantity: item.quantity - 1 } : item );
-    return set( { products: updatedProducts } );
+  decrease: ( product: CreateCartDTO ) => {
+    const products = get().products;
+    const exists = products.find( item => item._id === product._id );
+
+    if ( exists && exists.quantity > 1 ) {
+      return set( { products: products.map( item => item._id === product._id ? { ...item, quantity: item.quantity - 1 } : item ) } );
+    } else {
+      return set( { products: products.filter( item => item._id !== product._id ) } );
+    }
   },
 
-  getQuantity: ( _id ) => {
-    return get().products.find( item => item.product === _id )?.quantity || 0;
+  getTotalQuantity: () => {
+    const products = get().products;
+    return products.reduce( ( acc, item ) => { return acc = acc + item.quantity; }, 0 );
   },
 
-  getQuantities: () => {
-    return get().products.reduce( ( acc, item ) => { return acc = acc + item.quantity; }, 0 );
+  getTotalPrice: () => {
+    const products = get().products;
+    return products.reduce( ( acc, item ) => { return acc = acc + item.price * item.quantity; }, 0 );
   },
 
   reset: () => {

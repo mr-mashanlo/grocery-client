@@ -1,6 +1,10 @@
-import { type Product, ProductSchema } from './model/schema';
+import { type CreateProductDTO, CreateProductSchema, type Product, type UpdateProductDTO, UpdateProductSchema } from './model/schema';
+import { useCreateProduct } from './model/use-create-product';
+import { useDeleteProduct } from './model/use-delete-product';
 import { useProduct } from './model/use-product';
 import { useProducts } from './model/use-products';
-import ProductCard from './ui/product-card';
+import { useUpdateProduct } from './model/use-update-product';
 
-export { type Product, ProductCard, ProductSchema, useProduct, useProducts };
+export { type CreateProductDTO, CreateProductSchema, type Product, type UpdateProductDTO, UpdateProductSchema };
+
+export { useCreateProduct, useDeleteProduct, useProduct, useProducts, useUpdateProduct };

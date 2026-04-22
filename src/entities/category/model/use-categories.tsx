@@ -5,11 +5,10 @@ import { categoryService } from '../api/api';
 export const useCategories = ( params?: Record<string, string> ) => {
 
   const categories = useQuery( {
-    queryKey: [ 'categories' ],
-    queryFn: () => categoryService.getAllCategories( params ),
+    queryKey: [ 'categories', params ],
+    queryFn: () => categoryService.getCategories( params ),
     placeholderData: data => data
   } );
 
   return { categories };
-
 };

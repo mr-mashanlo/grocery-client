@@ -14,12 +14,8 @@ class AuthService {
     return kyInstance( 'auth/signup', { method: 'post', body: JSON.stringify( data ) } );
   };
 
-  signout = (): Promise<KyResponse<{ ok: boolean }>> => {
-    return kyInstance( 'auth/signout', { method: 'get' } );
-  };
-
-  refresh = (): Promise<KyResponse<Auth>> => {
-    return kyInstance( 'auth/refresh', { method: 'get' } );
+  me = async (): Promise<KyResponse<Auth>> => {
+    return await kyInstance( 'auth/me', { method: 'get', retry: 1 } );
   };
 
 }

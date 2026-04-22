@@ -1,23 +1,28 @@
 import { kyInstance } from '@/shared/libs';
 
-import { type Order, type OrderDTO, type PaginatedOrders } from '../model/schema';
+import { type CreateOrderDTO, type Order, type PaginatedOrder } from '../model/schema';
 
 class OrderService {
 
-  createOrder = async ( data: OrderDTO ): Promise<Order> => {
+  createOrder = async ( data: CreateOrderDTO ): Promise<Order> => {
     const response = await kyInstance( 'orders', { method: 'post', body: JSON.stringify( data ) } );
     return await response.json();
   };
 
-  getAllOrders = async ( params?: Record<string, string> ): Promise<PaginatedOrders> => {
-    const searchParams = new URLSearchParams( params );
-    const response = await kyInstance( `orders/all?${searchParams}`, { method: 'get' } );
+  deleteOrder = async ( id: string ): Promise<Order> => {
+    const response = await kyInstance( `orders/${id}`, { method: 'delete' } );
     return await response.json();
   };
 
-  getMyOrders = async ( params?: Record<string, string> ): Promise<PaginatedOrders> => {
+  getOrders = async ( params?: Record<string, string> ): Promise<PaginatedOrder> => {
     const searchParams = new URLSearchParams( params );
     const response = await kyInstance( `orders?${searchParams}`, { method: 'get' } );
+    return await response.json();
+  };
+
+  getMyOrders = async ( params?: Record<string, string> ): Promise<PaginatedOrder> => {
+    const searchParams = new URLSearchParams( params );
+    const response = await kyInstance( `orders/me?${searchParams}`, { method: 'get' } );
     return await response.json();
   };
 
@@ -26,8 +31,8 @@ class OrderService {
     return await response.json();
   };
 
-  updateOrderStatus = async ( id: string, status: 'Processing' | 'Shipped' | 'Delivered' | 'Canceled' ): Promise<Order> => {
-    const response = await kyInstance( `orders/${id}`, { method: 'put', body: JSON.stringify( { status } ) } );
+  updateOrder = async ( id: string, data: CreateOrderDTO ): Promise<Order> => {
+    const response = await kyInstance( `orders/${id}`, { method: 'put', body: JSON.stringify( data ) } );
     return await response.json();
   };
 

@@ -1,15 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { addressService } from '../api/api';
-import { type CreateAddressDTO } from './schema';
 
-export const useCreateAddress = () => {
+export const useDeleteAddress = ( id: string ) => {
   const queryClient = useQueryClient();
 
-  const create = useMutation( {
-    mutationFn: ( data: CreateAddressDTO ) => addressService.createAddress( data ),
+  const remove = useMutation( {
+    mutationFn: () => addressService.deleteAddress( id ),
     onSuccess: () => queryClient.invalidateQueries( { queryKey: [ 'addresses' ] } )
   } );
 
-  return { create };
+  return { remove };
 };

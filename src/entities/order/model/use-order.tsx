@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { orderService } from '../api/api';
 
-export const useOrder = ( id: string  ) => {
-
+export const useOrder = ( id: string ) => {
   const order = useQuery( {
     queryKey: [ 'order', id ],
     queryFn: () => orderService.getOrderById( id ),
@@ -11,5 +10,4 @@ export const useOrder = ( id: string  ) => {
   } );
 
   return { order };
-
 };

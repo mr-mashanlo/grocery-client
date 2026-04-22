@@ -2,34 +2,36 @@ import { z } from 'zod';
 
 import { type PaginatedResponse } from '@/shared/types';
 
-import { ProductSchema } from '../@x/product';
-
-export const OrderDTOSchema = z.object( {
-  address: z.string(),
-  products: z.array( z.object( { product: z.string(), price: z.number(), quantity: z.number() } ) ),
-  totalPrice: z.number(),
-  totalQuantity: z.number()
+const ProductSchema = z.object( {
+  _id: z.string(),
+  name: z.string(),
+  price: z.number(),
+  quantity: z.number(),
+  image: z.object( {
+    alt: z.string(),
+    url: z.string()
+  } )
 } );
 
 export const OrderSchema = z.object( {
   _id: z.string(),
   user: z.string(),
-  address: z.object( {
-    region: z.string(),
-    city: z.string(),
-    street: z.string(),
-    address: z.string(),
-    phone: z.string()
-  } ),
-  products: z.array( z.object( { product: ProductSchema, price: z.number(), quantity: z.number() } ) ),
+  address: z.string(),
   status: z.enum( [ 'Processing', 'Shipped', 'Delivered', 'Canceled' ] ),
-  totalPrice: z.number(),
-  totalQuantity: z.number(),
-  createdAt: z.string()
+  createdAt: z.string(),
+  products: z.array( ProductSchema ),
+  total: z.number(),
+  quantity: z.number()
 } );
+
+export const CreateOrderSchema = OrderSchema.pick( { products: true, total: true, quantity: true } );
+
+export const UpdateOrderSchema = OrderSchema.pick( { products: true, total: true, quantity: true } );
 
 export type Order = z.infer<typeof OrderSchema>;
 
-export type OrderDTO = z.infer<typeof OrderDTOSchema>;
+export type CreateOrderDTO = z.infer<typeof CreateOrderSchema>;
 
-export type PaginatedOrders = PaginatedResponse<Order>
+export type UpdateOrderDTO = z.infer<typeof CreateOrderSchema>;
+
+export type PaginatedOrder = PaginatedResponse<Order>

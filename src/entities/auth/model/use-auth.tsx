@@ -7,10 +7,6 @@ export const useAuth = () => {
 
   const signup = ( data: AuthDTO ) => authService.signup( data );
 
-  const signout = () => authService.signout();
-
-  const refresh = () => authService.refresh();
-
-  return { signin, signup, signout, refresh };
+  return { signin, signup };
 
 };
