@@ -21,7 +21,7 @@ export default defineConfig( [
       globals: globals.browser
     },
     plugins: {
-      'simple-import-sort': simpleImportSort
+      '@simple-sort': simpleImportSort
     },
     rules: {
       'react/react-in-jsx-scope': 'off',
@@ -37,8 +37,8 @@ export default defineConfig( [
       'space-in-parens': [ 'error', 'always' ],
       'linebreak-style': [ 'error', 'unix' ],
       'jsx-quotes': [ 'error', 'prefer-double' ],
-      'simple-import-sort/exports': 'error',
-      'simple-import-sort/imports': 'error'
+      '@simple-sort/exports': 'error',
+      '@simple-sort/imports': 'error'
     }
   }
 ] );
