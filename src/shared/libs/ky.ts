@@ -8,3 +8,9 @@ export const kyInstance = ky.create( {
   headers: { 'Content-Type': 'application/json' },
   retry: { limit: 1 }
 } );
+
+export const kyMediaInstance = ky.create( {
+  prefixUrl: import.meta.env.VITE_BACK_URL,
+  credentials: 'include',
+  retry: { limit: 1 }
+} );

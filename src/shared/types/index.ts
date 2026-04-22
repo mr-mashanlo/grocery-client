@@ -1,3 +1,3 @@
-import type { PaginatedResponse } from './paginated-response';
+import { type PaginatedResponse } from './paginated-response';
 
-export type { PaginatedResponse };
+export { type PaginatedResponse };

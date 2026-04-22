@@ -1,5 +1,4 @@
-import { kyInstance, UnauthorizedError } from './ky';
-import { mapCartPrices } from './map-cart-prices';
+import { kyInstance, kyMediaInstance, UnauthorizedError } from './ky';
 import { mapServerErrors } from './map-server-errors';
 
-export { kyInstance, mapCartPrices, mapServerErrors, UnauthorizedError };
+export { kyInstance, kyMediaInstance, mapServerErrors, UnauthorizedError };
