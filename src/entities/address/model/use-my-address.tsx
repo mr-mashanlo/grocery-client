@@ -4,7 +4,7 @@ import { addressService } from '../api/api';
 
 export const useMyAddress = () => {
   const address = useQuery( {
-    queryKey: [ 'address', 'me' ],
+    queryKey: [ 'address' ],
     queryFn: () => addressService.getMyAddress(),
     placeholderData: data => data
   } );

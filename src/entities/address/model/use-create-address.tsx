@@ -8,7 +8,10 @@ export const useCreateAddress = () => {
 
   const create = useMutation( {
     mutationFn: ( data: CreateAddressDTO ) => addressService.createAddress( data ),
-    onSuccess: () => queryClient.invalidateQueries( { queryKey: [ 'addresses' ] } )
+    onSuccess: address => {
+      queryClient.setQueryData( [ 'address' ], address );
+      queryClient.invalidateQueries( { queryKey: [ 'addresses', 'address' ] } );
+    }
   } );
 
   return { create };

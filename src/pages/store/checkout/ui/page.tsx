@@ -1,4 +1,4 @@
-import { type FC, useEffect } from 'react';
+import { type FC } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useMyAddress } from '@/entities/address';
@@ -11,15 +11,13 @@ export const CheckoutPage: FC = () => {
   const { me } = useMe();
   const { address } = useMyAddress();
 
-  useEffect( () => {
-    if ( !me.isFetched ) return;
-    if ( me.isError ) navigate( '/signin?from=checkout', { replace: true } );
-  }, [ me.isError, me.isFetched, navigate ] );
+  if ( me.isFetched && me.isError ) {
+    navigate( '/signin?from=checkout', { replace: true } );
+  }
 
-  useEffect( () => {
-    if ( !address.isFetched ) return;
-    if ( address.data === null ) navigate( '/address/create?from=checkout' );
-  }, [ address.data, address.isFetched, navigate ] );
+  if ( address.isFetched && address.data === null ) {
+    navigate( '/address/create?from=checkout', { replace: true } );
+  }
 
   return (
     <>

@@ -2,31 +2,55 @@ import { type FC } from 'react';
 import { useParams } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 
-import { useProduct } from '@/entities/product';
+import { type Product, useProduct } from '@/entities/product';
 import { AddToCartButton } from '@/features/cart/add-to-cart-button';
 
-const ProductUnit: FC = () => {
-  const { id } = useParams();
-  const { product } = useProduct( id || '' );
-
+const Skeleton: FC = () => {
   return (
-    <section className="m-4 sm:m-10">
+    <section aria-hidden="true" className="m-4 sm:m-10 animate-pulse">
       <div className="grid sm:grid-cols-3 gap-4 sm:gap-5">
         <ul className="grid sm:grid-cols-2 gap-4 sm:gap-5 sm:col-span-2">
-          {product.data?.images.map( image => <li key={image._id} className="block rounded-xl overflow-hidden"><img src={image.url} alt={image.alt} className="w-full h-full" /></li> )}
+          {Array.from( { length: 4 } ).map( ( _, index ) => <li key={index} className="w-full aspect-square bg-zinc-200 rounded-xl"></li> )}
         </ul>
         <div className="relative">
           <div className="sm:sticky sm:top-20">
-            <h1 className="mb-5 font-bold text-xl">{product.data?.name}</h1>
-            <p className="mb-5">{product.data?.salePrice ? <span>${product.data?.salePrice}</span> : null} <span className={twMerge( product.data?.salePrice && 'text-zinc-400 line-through' )}>${product.data?.price}</span></p>
-            <p className="mb-5">{product.data?.categories.map( category => category.name ).join( ', ' )}</p>
-            <AddToCartButton product={{ _id: product.data?._id || '', name: product.data?.name || '', price: product.data?.salePrice || product.data?.price || 0, image: { url: product.data?.images[0].url || '', alt: product.data?.images[0].alt || '' } }} className="mb-5 w-full p-4 rounded-xl bg-black text-white cursor-pointer outline-offset-3 disabled:cursor-default disabled:opacity-70" >Add to cart</AddToCartButton>
-            <p className="mb-5 leading-[200%]">{product.data?.description}</p>
+            <div className="h-7 mb-5 flex items-center font-bold text-xl"><span className="block w-30 h-2 bg-zinc-200"></span></div>
+            <div className="h-4.5 mb-5 flex items-center"><span className="block w-15 h-2 bg-zinc-200"></span></div>
+            <div className="h-4.5 mb-5 flex items-center"><span className="block w-20 h-2 bg-zinc-200"></span></div>
+            <div className="h-12.5 mb-5 w-full p-4 rounded-xl bg-zinc-200"></div>
           </div>
         </div>
       </div>
     </section>
   );
+};
+
+const Widget: FC<{ product?: Product }> = ( { product } ) => {
+  return (
+    <section className="m-4 sm:m-10 ">
+      <div className="grid sm:grid-cols-3 gap-4 sm:gap-5">
+        <ul className="grid sm:grid-cols-2 gap-4 sm:gap-5 sm:col-span-2">
+          {product?.images.map( image => <li key={image._id} className="block aspect-square rounded-xl overflow-hidden"><img src={image.url} alt={image.alt} className="w-full h-full" /></li> )}
+        </ul>
+        <div className="relative">
+          <div className="sm:sticky sm:top-20">
+            <h1 className="mb-5 font-bold text-xl">{product?.name}</h1>
+            <p className="mb-5">{product?.salePrice ? <span>${product.salePrice}</span> : null} <span className={twMerge( product?.salePrice && 'text-zinc-400 line-through' )}>${product?.price}</span></p>
+            <p className="mb-5">{product?.categories.map( category => category?.name ).join( ', ' )}</p>
+            <AddToCartButton product={{ _id: product?._id || '', name: product?.name || '', price: product?.salePrice || product?.price || 0, image: { url: product?.images[0].url || '', alt: product?.images[0].alt || '' } }} className="mb-5 w-full p-4 rounded-xl bg-black text-white cursor-pointer outline-offset-3 disabled:cursor-default disabled:opacity-70">Add to cart</AddToCartButton>
+            <p className="mb-5 leading-[200%]">{product?.description}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ProductUnit: FC = () => {
+  const { id } = useParams();
+  const { product } = useProduct( id || '' );
+
+  return product.isLoading ? <Skeleton /> : <Widget product={product.data} />;
 };
 
 export default ProductUnit;

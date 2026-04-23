@@ -29,7 +29,7 @@ const UpdateProductForm: FC<Props> = ( { product, className, ...props } ) => {
     <form onSubmit={handleFormSubmit} className={twMerge( 'w-full sm:w-165 relative', className )} {...props}>
       <h3 className="mb-5 text-xl text-center font-bold">Update product</h3>
       <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
-        <Fieldset className="h-30 p-1.25 bg-zinc-50 rounded-xl grid grid-cols-5 sm:grid-cols-10 gap-1.25 sm:col-span-2 content-start overflow-y-auto no-scrollbar">
+        <Fieldset className="h-30 p-1.25 bg-white rounded-xl grid grid-cols-5 sm:grid-cols-10 gap-1.25 sm:col-span-2 content-start overflow-y-auto no-scrollbar">
           <Legend className="sr-only">Image</Legend>
           {images.data?.data.map( image => (
             <form.Field key={image._id} name="images" validators={{ onChange: UpdateProductSchema.shape.images }}>
