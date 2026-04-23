@@ -20,8 +20,8 @@ class ProductService {
     return await response.json();
   };
 
-  getProductById = async ( id: string ): Promise<Product> => {
-    const response = await kyInstance( `products/${id}`, { method: 'get' } );
+  getProductSlug = async ( slug: string ): Promise<Product> => {
+    const response = await kyInstance( `products/${slug}`, { method: 'get' } );
     return await response.json();
   };
 

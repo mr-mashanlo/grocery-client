@@ -1,9 +1,11 @@
 import { useClose } from '@headlessui/react';
 import { useForm } from '@tanstack/react-form';
+import { useNavigate } from 'react-router';
 
 import { type CreateProductDTO, useCreateProduct } from '@/entities/product';
 
 export const useCreateProductForm = () => {
+  const navigate = useNavigate();
   const close = useClose();
   const { create } = useCreateProduct();
 
@@ -22,6 +24,7 @@ export const useCreateProductForm = () => {
         await create.mutateAsync( value );
         form.reset();
         close();
+        navigate( '/admin/products' );
       } catch ( error ) {
         console.log( error );
       }

@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 
 import { productService } from '../api/api';
 
-export const useProduct = ( id: string ) => {
+export const useProduct = ( slug: string ) => {
   const product = useQuery( {
-    queryKey: [ 'product', id ],
-    queryFn: () => productService.getProductById( id ),
+    queryKey: [ 'product', slug ],
+    queryFn: () => productService.getProductSlug( slug ),
     placeholderData: data => data
   } );
 

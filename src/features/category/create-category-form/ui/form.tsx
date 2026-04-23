@@ -26,14 +26,14 @@ const CreateCategoryForm: FC<Props> = ( { className, ...props } ) => {
     <form onSubmit={handleFormSubmit} className={twMerge( 'w-full sm:w-80 relative', className )} {...props}>
       <h3 className="mb-5 text-xl text-center font-bold">Create category</h3>
       <div className="grid gap-4 sm:gap-5">
-        <Fieldset className="max-h-24 p-0.5 grid grid-cols-5 gap-4 sm:gap-5 overflow-y-auto no-scrollbar">
+        <Fieldset className="h-30 p-1.25 bg-zinc-50 rounded-xl grid grid-cols-4 gap-1.25 content-start overflow-y-auto no-scrollbar">
           <Legend className="sr-only">Image</Legend>
           {images.data?.data.map( image => (
             <form.Field key={image._id} name="image" validators={{ onChange: CreateCategorySchema.shape.image }}>
               {field =>
                 <Field className="block grow relative">
                   <Input type="radio" name={field.name} value={image._id} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="Category" className="peer sr-only" />
-                  <Label className="block w-12.5 h-12.5 rounded-xl cursor-pointer peer-checked:outline-2">
+                  <Label className="block rounded-xl cursor-pointer peer-checked:outline-2">
                     <img src={image.url} alt={image.alt} className="w-full h-full rounded-xl"/>
                   </Label>
                 </Field>

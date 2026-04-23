@@ -6,14 +6,12 @@ import { twMerge } from 'tailwind-merge';
 
 import { type Product } from '@/entities/product';
 import { DeleteProductForm } from '@/features/product/delete-product-form';
-import { UpdateProductForm } from '@/features/product/update-product-form';
 
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement> {
   product: Product
 }
 
 const Row: FC<Props> = ( { product } ) => {
-  const [ isUpdateModalOpen, setIsUpdateModalOpen ] = useState( false );
   const [ isArchiveModalOpen, setIsArchiveModalOpen ] = useState( false );
   const [ isDeleteModalOpen, setIsDeleteModalOpen ] = useState( false );
 
@@ -26,7 +24,7 @@ const Row: FC<Props> = ( { product } ) => {
           </MenuButton>
           <MenuItems transition anchor="bottom start" className="w-50 p-1 bg-white rounded-md border border-zinc-200 transition duration-300 ease-out [--anchor-gap:--spacing(1)] focus:outline-none data-closed:scale-95 data-closed:opacity-0">
             <MenuItem>
-              <Link to={`/admin/products/${product._id}`} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Edit</Link>
+              <Link to={`/admin/products/${product.slug}`} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Edit</Link>
             </MenuItem>
             <MenuItem>
               <button onClick={() => setIsArchiveModalOpen( true )} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Archive</button>
@@ -36,15 +34,6 @@ const Row: FC<Props> = ( { product } ) => {
             </MenuItem>
           </MenuItems>
         </Menu>
-        <Dialog open={isUpdateModalOpen} onClose={() => setIsUpdateModalOpen( false )} className="relative z-10 focus:outline-none">
-          <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div className="min-h-full p-4 bg-black/10 flex items-center justify-center">
-              <DialogPanel transition className="w-3xl h-120 p-4 flex items-center justify-center bg-white rounded-xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0">
-                <UpdateProductForm product={product} />
-              </DialogPanel>
-            </div>
-          </div>
-        </Dialog>
         <Dialog open={isArchiveModalOpen} onClose={() => setIsArchiveModalOpen( false )} className="relative z-10 focus:outline-none">
           <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div className="min-h-full p-4 bg-black/10 flex items-center justify-center">
