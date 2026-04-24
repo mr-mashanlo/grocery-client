@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 
 import { type Product } from '@/entities/product';
+import { ArchiveProductForm } from '@/features/product/archive-product-form';
 import { DeleteProductForm } from '@/features/product/delete-product-form';
 
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement> {
@@ -27,7 +28,7 @@ const Row: FC<Props> = ( { product } ) => {
               <Link to={`/admin/products/${product.slug}`} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Edit</Link>
             </MenuItem>
             <MenuItem>
-              <button onClick={() => setIsArchiveModalOpen( true )} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Archive</button>
+              <button onClick={() => setIsArchiveModalOpen( true )} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">{product.archived ? 'Unarchive' : 'Archive'}</button>
             </MenuItem>
             <MenuItem>
               <button onClick={() => setIsDeleteModalOpen( true )} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Delete</button>
@@ -38,7 +39,7 @@ const Row: FC<Props> = ( { product } ) => {
           <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div className="min-h-full p-4 bg-black/10 flex items-center justify-center">
               <DialogPanel transition className="w-3xl h-120 p-4 flex items-center justify-center bg-white rounded-xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0">
-                <DeleteProductForm id={product._id} />
+                <ArchiveProductForm product={product} />
               </DialogPanel>
             </div>
           </div>

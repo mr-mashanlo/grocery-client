@@ -8,7 +8,7 @@ export const useUpdateProduct = () => {
 
   const update = useMutation( {
     mutationFn: ( { id, data }: { id: string, data: UpdateProductDTO } ) => productService.updateProduct( id, data ),
-    onSuccess: () => queryClient.invalidateQueries( { queryKey: [ 'product' ] } )
+    onSuccess: () => queryClient.invalidateQueries( { queryKey: [ 'products' ] } )
   } );
 
   return { update };

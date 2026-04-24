@@ -7,7 +7,7 @@ import { useCategories } from '@/entities/category';
 
 const Header: FC = () => {
   const [ searchParams, setSearchParams ] = useSearchParams();
-  const { categories } = useCategories( { limit: '1000' } );
+  const { categories } = useCategories( { limit: '1000', archived: 'false' } );
 
   const setParams = ( params?: Record<string, string> ) => {
     setSearchParams( { ...Object.fromEntries( searchParams.entries() ), ...params } );
