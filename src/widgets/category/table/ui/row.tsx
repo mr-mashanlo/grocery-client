@@ -3,6 +3,7 @@ import { EllipsisVertical } from 'lucide-react';
 import { type DetailedHTMLProps, type FC, type HTMLAttributes, useState } from 'react';
 
 import { type Category } from '@/entities/category';
+import { ArchiveCategoryForm } from '@/features/category/archive-category-form';
 import { DeleteCategoryForm } from '@/features/category/delete-category-form';
 import { UpdateCategoryForm } from '@/features/category/update-category-form';
 
@@ -27,7 +28,7 @@ const Row: FC<Props> = ( { category } ) => {
               <button onClick={() => setIsUpdateModalOpen( true )} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Edit</button>
             </MenuItem>
             <MenuItem>
-              <button onClick={() => setIsArchiveModalOpen( true )} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Archive</button>
+              <button onClick={() => setIsArchiveModalOpen( true )} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">{category.archived ? 'Unrchive' : 'Archive'}</button>
             </MenuItem>
             <MenuItem>
               <button onClick={() => setIsDeleteModalOpen( true )} className="w-full px-3 py-1.5 flex items-center gap-2 rounded-md cursor-pointer hover:bg-zinc-100">Delete</button>
@@ -47,7 +48,7 @@ const Row: FC<Props> = ( { category } ) => {
           <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div className="min-h-full p-4 bg-black/10 flex items-center justify-center">
               <DialogPanel transition className="w-3xl h-120 p-4 flex items-center justify-center bg-white rounded-xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0">
-                <DeleteCategoryForm id={category._id} />
+                <ArchiveCategoryForm category={category} />
               </DialogPanel>
             </div>
           </div>
