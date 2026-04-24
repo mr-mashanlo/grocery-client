@@ -3,6 +3,7 @@ import { type DetailedHTMLProps, type FC, type HTMLAttributes } from 'react';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 
+import { useMe } from '@/entities/auth';
 import { useCartStore } from '@/entities/cart';
 
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
@@ -11,6 +12,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLEleme
 
 const Header: FC<Props> = ( { className, ...props } ) => {
   const { getTotalQuantity } = useCartStore();
+  const { me } = useMe();
 
   return (
     <header className={twMerge( 'px-4 sm:px-10 py-5 flex items-center justify-between bg-white text-zinc-600 shadow-md shadow-zinc-100', className )} {...props}>
@@ -20,8 +22,15 @@ const Header: FC<Props> = ( { className, ...props } ) => {
         </svg>
       </Link>
       <ul className="flex items-center gap-6 sm:gap-12">
-        <li><Link to="/address">Address</Link></li>
-        <li><Link to="/orders">Orders</Link></li>
+        {me.isError ?
+          <>
+            <li><Link to="/signin">Sign in</Link></li>
+          </> :
+          <>
+            <li><Link to="/address">Address</Link></li>
+            <li><Link to="/orders">Orders</Link></li>
+          </>
+        }
         <li><Link to="/cart" className="flex items-center gap-2"><ShoppingBag strokeWidth="1.8" className="inline w-5 h-5 stroke-zinc-300" /> <span>{getTotalQuantity()}</span></Link></li>
       </ul>
     </header>

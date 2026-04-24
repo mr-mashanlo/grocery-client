@@ -2,11 +2,15 @@ import { type DetailedHTMLProps, type FC, type HTMLAttributes } from 'react';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 
+import { useMe } from '@/entities/auth';
+
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
   className?: string
 }
 
 const Footer: FC<Props> = ( { className, ...props } ) => {
+  const { me } = useMe();
+
   return (
     <header className={twMerge( 'px-4 sm:px-10 py-5 flex items-center justify-between bg-white text-zinc-600 shadow-md shadow-zinc-100', className )} {...props}>
       <Link to="/">
@@ -15,8 +19,15 @@ const Footer: FC<Props> = ( { className, ...props } ) => {
         </svg>
       </Link>
       <ul className="flex items-center gap-6 sm:gap-12">
-        <li><Link to="/address">Address</Link></li>
-        <li><Link to="/orders">Orders</Link></li>
+        {me.isError ?
+          <>
+            <li><Link to="/signin">Sign in</Link></li>
+          </> :
+          <>
+            <li><Link to="/address">Address</Link></li>
+            <li><Link to="/orders">Orders</Link></li>
+          </>
+        }
       </ul>
     </header>
   );
