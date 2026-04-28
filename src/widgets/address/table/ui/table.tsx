@@ -14,7 +14,15 @@ const Table: FC<Props> = ( { addresses, ...props } ) => {
   const [ searchParams, setSearchParams ] = useSearchParams();
 
   const setParams = ( params?: Record<string, string> ) => {
-    setSearchParams( { ...Object.fromEntries( searchParams.entries() ), ...params } );
+    if ( !params ) return;
+
+    if ( searchParams.get( 'sort' ) === params.sort ) {
+      const updatedParams = { ...params, sort: searchParams.get( 'sort' ) || '', order: searchParams.get( 'order' ) === 'desc' ? 'asc' : 'desc' };
+      setSearchParams( { ...Object.fromEntries( searchParams.entries() ), ...updatedParams } );
+    } else {
+      const updatedParams = { ...params, sort: params.sort, order: 'asc' };
+      setSearchParams( { ...Object.fromEntries( searchParams.entries() ), ...updatedParams } );
+    }
   };
 
   return (
