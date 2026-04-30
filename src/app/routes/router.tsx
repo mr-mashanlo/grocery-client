@@ -5,8 +5,8 @@ import { signUpRouter } from '@/pages/auth/sign-up';
 import { homeRouter } from '@/pages/home';
 import { notFoundRouter } from '@/pages/not-found';
 
-import { adminRouter } from './admin-router';
 import MainLayout from '../layouts/main';
+import { adminRouter } from './admin-router';
 import { storeRouter } from './store-router';
 
 export const router = createBrowserRouter( [
