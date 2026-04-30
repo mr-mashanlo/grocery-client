@@ -4,12 +4,7 @@ import { HTTPError } from 'ky';
 import { useAuth } from '@/entities/auth';
 import { mapServerErrors } from '@/shared/libs';
 
-interface Props {
-  onSuccess?: () => void,
-  onError?: () => void
-}
-
-export const useSignUpForm = ( { onSuccess, onError }: Props = {} ) => {
+export const useSignUpForm = ( { onSuccess, onError }: { onSuccess?: () => void, onError?: () => void } ) => {
 
   const { signup } = useAuth();
 

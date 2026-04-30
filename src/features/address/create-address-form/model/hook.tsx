@@ -3,12 +3,7 @@ import { useForm } from '@tanstack/react-form';
 
 import { type CreateAddressDTO, useCreateAddress } from '@/entities/address';
 
-interface Props {
-  onSuccess?: () => void,
-  onError?: () => void
-}
-
-export const useCreateAddressForm = ( { onSuccess, onError }: Props = {} ) => {
+export const useCreateAddressForm = ( { onSuccess, onError }: { onSuccess?: () => void, onError?: () => void } ) => {
   const close = useClose();
   const { create } = useCreateAddress();
 
