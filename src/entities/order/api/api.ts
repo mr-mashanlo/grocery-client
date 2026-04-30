@@ -4,36 +4,28 @@ import { type CreateOrderDTO, type Order, type PaginatedOrder } from '../model/s
 
 class OrderService {
 
-  createOrder = async ( data: CreateOrderDTO ): Promise<Order> => {
-    const response = await kyInstance( 'orders', { method: 'post', body: JSON.stringify( data ) } );
-    return await response.json();
+  createOrder = ( data: CreateOrderDTO ): Promise<Order> => {
+    return kyInstance.post( 'orders', { json: data } ).json();
   };
 
-  deleteOrder = async ( id: string ): Promise<Order> => {
-    const response = await kyInstance( `orders/${id}`, { method: 'delete' } );
-    return await response.json();
+  deleteOrder = ( id: string ): Promise<Order> => {
+    return kyInstance.delete( `orders/${id}` ).json();
   };
 
-  getOrders = async ( params?: Record<string, string> ): Promise<PaginatedOrder> => {
-    const searchParams = new URLSearchParams( params );
-    const response = await kyInstance( `orders?${searchParams}`, { method: 'get' } );
-    return await response.json();
+  getOrders = ( searchParams?: Record<string, string> ): Promise<PaginatedOrder> => {
+    return kyInstance.get( 'orders', { searchParams } ).json();
   };
 
-  getMyOrders = async ( params?: Record<string, string> ): Promise<PaginatedOrder> => {
-    const searchParams = new URLSearchParams( params );
-    const response = await kyInstance( `orders/me?${searchParams}`, { method: 'get' } );
-    return await response.json();
+  getMyOrders = async ( searchParams?: Record<string, string> ): Promise<PaginatedOrder> => {
+    return kyInstance.get( 'orders/me', { searchParams } ).json();
   };
 
   getOrderById = async ( id: string ): Promise<Order> => {
-    const response = await kyInstance( `orders/${id}`, { method: 'get' } );
-    return await response.json();
+    return kyInstance.get( `orders/${id}` ).json();
   };
 
   updateOrder = async ( id: string, data: CreateOrderDTO ): Promise<Order> => {
-    const response = await kyInstance( `orders/${id}`, { method: 'put', body: JSON.stringify( data ) } );
-    return await response.json();
+    return kyInstance.put( `orders/${id}`, { json: data } ).json();
   };
 
 }

@@ -4,35 +4,28 @@ import { type Address, type CreateAddressDTO, type PaginatedAddress, type Update
 
 class AddressService {
 
-  createAddress = async ( data: CreateAddressDTO ): Promise<Address> => {
-    const response = await kyInstance( 'addresses', { method: 'post', body: JSON.stringify( data ) } );
-    return await response.json();
+  createAddress = ( data: CreateAddressDTO ): Promise<Address> => {
+    return kyInstance.post( 'addresses', { json: data } ).json();
   };
 
-  deleteAddress = async ( id: string ): Promise<Address> => {
-    const response = await kyInstance( `addresses/${id}`, { method: 'delete' } );
-    return await response.json();
+  deleteAddress = ( id: string ): Promise<Address> => {
+    return kyInstance.delete( `addresses/${id}` ).json();
   };
 
-  getAddresses = async ( params?: Record<string, string> ): Promise<PaginatedAddress> => {
-    const searchParams = new URLSearchParams( params );
-    const response = await kyInstance( `addresses?${searchParams}`, { method: 'get' } );
-    return await response.json();
+  getAddresses = ( searchParams?: Record<string, string> ): Promise<PaginatedAddress> => {
+    return kyInstance.get( 'addresses', { searchParams } ).json();
   };
 
-  getAddressById = async ( id: string ): Promise<Address> => {
-    const response = await kyInstance( `addresses/${id}`, { method: 'get' } );
-    return await response.json();
+  getAddressById = ( id: string ): Promise<Address> => {
+    return kyInstance.get( `addresses/${id}` ).json();
   };
 
-  getMyAddress = async (): Promise<Address> => {
-    const response = await kyInstance( 'addresses/me', { method: 'get' } );
-    return await response.json();
+  getMyAddress = (): Promise<Address> => {
+    return kyInstance.get( 'addresses/me' ).json();
   };
 
-  updateAddress = async ( id: string, data: UpdateAddressDTO ): Promise<Address> => {
-    const response = await kyInstance( `addresses/${id}`, { method: 'put', body: JSON.stringify( data ) } );
-    return await response.json();
+  updateAddress = ( id: string, data: UpdateAddressDTO ): Promise<Address> => {
+    return kyInstance.put( `addresses/${id}`, { json: data } ).json();
   };
 
 }

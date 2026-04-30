@@ -4,25 +4,20 @@ import { type Category, type CreateCategoryDTO, type PaginatedCategory, type Upd
 
 class CategoryService {
 
-  createCategory = async ( data: CreateCategoryDTO ): Promise<Category> => {
-    const response = await kyInstance( 'categories', { method: 'post', body: JSON.stringify( data ) } );
-    return await response.json();
+  createCategory = ( data: CreateCategoryDTO ): Promise<Category> => {
+    return kyInstance.post( 'categories', { json: data } ).json();
   };
 
-  deleteCategory = async ( id: string ): Promise<Category> => {
-    const response = await kyInstance( `categories/${id}`, { method: 'delete' } );
-    return await response.json();
+  deleteCategory = ( id: string ): Promise<Category> => {
+    return kyInstance.delete( `categories/${id}` ).json();
   };
 
-  getCategories = async ( params?: Record<string, string> ): Promise<PaginatedCategory> => {
-    const searchParams = new URLSearchParams( params );
-    const response = await kyInstance( `categories?${searchParams}`, { method: 'get' } );
-    return await response.json();
+  getCategories = async ( searchParams?: Record<string, string> ): Promise<PaginatedCategory> => {
+    return kyInstance.get( 'categories', { searchParams } ).json();
   };
 
   updateCategory = async ( id: string, data: UpdateCategoryDTO ): Promise<Category> => {
-    const response = await kyInstance( `categories/${id}`, { method: 'put', body: JSON.stringify( data ) } );
-    return await response.json();
+    return kyInstance.put( `categories/${id}`, { json: data } ).json();
   };
 
 }

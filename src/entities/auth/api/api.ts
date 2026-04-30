@@ -7,15 +7,15 @@ import { type Auth, type AuthDTO } from '../model/schema';
 class AuthService {
 
   signin = ( data: AuthDTO ): Promise<KyResponse<Auth>> => {
-    return kyInstance( 'auth/signin', { method: 'post', body: JSON.stringify( data ) } );
+    return kyInstance.post( 'auth/signin', { json: data } );
   };
 
   signup = ( data: AuthDTO ): Promise<KyResponse<Auth>> => {
-    return kyInstance( 'auth/signup', { method: 'post', body: JSON.stringify( data ) } );
+    return kyInstance.post( 'auth/signup', { json: data } );
   };
 
   me = async (): Promise<KyResponse<Auth>> => {
-    return await kyInstance( 'auth/me', { method: 'get', retry: 1 } );
+    return kyInstance.get( 'auth/me' );
   };
 
 }

@@ -4,30 +4,24 @@ import { type CreateProductDTO, type PaginatedProduct, type Product, type Update
 
 class ProductService {
 
-  createProduct = async ( data: CreateProductDTO ): Promise<Product> => {
-    const response = await kyInstance( 'products', { method: 'post', body: JSON.stringify( data ) } );
-    return await response.json();
+  createProduct = ( data: CreateProductDTO ): Promise<Product> => {
+    return kyInstance.post( 'products', { json: data } ).json();
   };
 
-  deleteProduct = async ( id: string ): Promise<Product> => {
-    const response = await kyInstance( `products/${id}`, { method: 'delete' } );
-    return await response.json();
+  deleteProduct = ( id: string ): Promise<Product> => {
+    return kyInstance.delete( `products/${id}` ).json();
   };
 
-  getProducts = async ( params?: Record<string, string> ): Promise<PaginatedProduct> => {
-    const searchParams = new URLSearchParams( params );
-    const response = await kyInstance( `products?${searchParams}`, { method: 'get' } );
-    return await response.json();
+  getProducts = ( searchParams?: Record<string, string> ): Promise<PaginatedProduct> => {
+    return kyInstance.get( 'products', { searchParams } ).json();
   };
 
-  getProductSlug = async ( slug: string ): Promise<Product> => {
-    const response = await kyInstance( `products/${slug}`, { method: 'get' } );
-    return await response.json();
+  getProductSlug = ( slug: string ): Promise<Product> => {
+    return kyInstance.get( `products/${slug}` ).json();
   };
 
-  updateProduct = async ( id: string, data: UpdateProductDTO ): Promise<Product> => {
-    const response = await kyInstance( `products/${id}`, { method: 'put', body: JSON.stringify( data ) } );
-    return await response.json();
+  updateProduct = ( id: string, data: UpdateProductDTO ): Promise<Product> => {
+    return kyInstance.put( `products/${id}`, { json: data } ).json();
   };
 
 }

@@ -4,30 +4,23 @@ import { type CreateImageDTO, type Image, type PaginatedImage, type UpdateImageD
 
 class ImageService {
 
-  createImage = async ( data: CreateImageDTO ): Promise<Image> => {
+  createImage = ( data: CreateImageDTO ): Promise<Image> => {
     const formData = new FormData();
-    if ( data.image ) {
-      formData.append( 'image', data.image );
-      formData.append( 'alt', data.alt );
-    }
-    const response = await kyMediaInstance( 'images', { method: 'post', body: formData } );
-    return await response.json();
+    formData.append( 'image', data.image );
+    formData.append( 'alt', data.alt );
+    return kyMediaInstance.post( 'images', { body: formData } ).json();
   };
 
-  deleteImage = async ( id: string ): Promise<Image> => {
-    const response = await kyInstance( `images/${id}`, { method: 'delete' } );
-    return await response.json();
+  deleteImage = ( id: string ): Promise<Image> => {
+    return kyInstance.delete( `images/${id}` ).json();
   };
 
-  getImages = async ( params?: Record<string, string> ): Promise<PaginatedImage> => {
-    const searchParams = new URLSearchParams( params );
-    const response = await kyInstance( `images?${searchParams}`, { method: 'get' } );
-    return await response.json();
+  getImages = ( searchParams?: Record<string, string> ): Promise<PaginatedImage> => {
+    return kyInstance.get( 'images', { searchParams } ).json();
   };
 
-  updateImage = async ( id: string, data: UpdateImageDTO ): Promise<Image> => {
-    const response = await kyInstance( `images/${id}`, { method: 'put', body: JSON.stringify( data ) } );
-    return await response.json();
+  updateImage = ( id: string, data: UpdateImageDTO ): Promise<Image> => {
+    return kyInstance.put( `images/${id}`, { json: data } ).json();
   };
 
 }
