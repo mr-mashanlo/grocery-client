@@ -15,8 +15,7 @@ const SignUpForm: FC<Props> = ( { className, ...others } ) => {
   const navigate = useNavigate();
   const [ searchParams ] = useSearchParams();
   const form = useSignUpForm( { onSuccess: () => navigate( searchParams.get( 'from' ) ? `/${searchParams.get( 'from' )}` : '/', { replace: true } ) } );
-  const canSubmit = useStore( form.store, state => state.canSubmit );
-  const metaData = useStore( form.store, state => state.fieldMeta );
+  const { canSubmit, fieldMeta } = useStore( form.store, state => state );
   const [ isPasswordVisible, setIsPasswordVisible ] = useState<boolean>( false );
 
   const handleFormSubmit = ( e: FormEvent<HTMLFormElement> ) => {
@@ -30,7 +29,7 @@ const SignUpForm: FC<Props> = ( { className, ...others } ) => {
   };
 
   const getErrorMessages = () => {
-    return Object.values( metaData ).filter( field => field.errors.length ).map( field => field.errors.map( item => item.message ) );
+    return Object.values( fieldMeta ).filter( field => field.errors.length ).map( field => field.errors.map( item => item.message ) );
   };
 
   return (
@@ -62,8 +61,12 @@ const SignUpForm: FC<Props> = ( { className, ...others } ) => {
           </form.Subscribe>
         </div>
       </Fieldset>
-      <p className="mt-5 text-center">Already have an account? <Link to={`/signin?${searchParams.toString()}`} className="font-bold decoration-[.1rem] hover:underline">Log in</Link></p>
-      {!canSubmit && <p className="w-full mt-3 px-3 text-center text-red-600 absolute top-full">{getErrorMessages().join( ', ' )}</p>}
+      <div className="w-full mt-5 text-center absolute top-full">
+        {!canSubmit ?
+          <p className="text-red-600">{getErrorMessages().join( ', ' )}</p> :
+          <p>Already have an account? <Link to={`/signin?${searchParams.toString()}`} className="font-bold decoration-[.1rem] hover:underline">Log in</Link></p>
+        }
+      </div>
     </form>
   );
 };

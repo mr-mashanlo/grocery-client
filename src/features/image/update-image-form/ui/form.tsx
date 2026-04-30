@@ -1,4 +1,5 @@
 import { Button, Field, Input } from '@headlessui/react';
+import { useStore } from '@tanstack/react-form';
 import { OctagonAlert, TypeOutline } from 'lucide-react';
 import { type DetailedHTMLProps, type FC, type FormEvent, type FormHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -14,11 +15,16 @@ interface Props extends DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, H
 
 const UpdateImageForm: FC<Props> = ( { image, className, ...props } ) => {
   const form = useUpdateImageForm( image );
+  const { canSubmit, fieldMeta } = useStore( form.store, state => state );
 
   const handleFormSubmit = ( e: FormEvent<HTMLFormElement> ) => {
     e.preventDefault();
     e.stopPropagation();
     form.handleSubmit();
+  };
+
+  const getErrorMessages = () => {
+    return Object.values( fieldMeta ).filter( field => field.errors.length ).map( field => field.errors.map( item => item.message ) );
   };
 
   return (
@@ -39,7 +45,12 @@ const UpdateImageForm: FC<Props> = ( { image, className, ...props } ) => {
           }
         </form.Subscribe>
       </div>
-      <p className="mt-5 text-center">Lorem ipsum dolor sit amet</p>
+      <div className="w-full mt-5 text-center absolute top-full">
+        {!canSubmit ?
+          <p className=" text-red-600">{getErrorMessages().join( ', ' )}</p> :
+          <p>Lorem ipsum dolor sit amet</p>
+        }
+      </div>
     </form>
   );
 };

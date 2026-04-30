@@ -1,4 +1,5 @@
 import { Button, Field, Input } from '@headlessui/react';
+import { useStore } from '@tanstack/react-form';
 import { Compass, OctagonAlert, Phone } from 'lucide-react';
 import { type DetailedHTMLProps, type FC, type FormEvent, type FormHTMLAttributes } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
@@ -16,6 +17,7 @@ const CreateAddressForm: FC<Props> = ( { className, ...props } ) => {
   const navigate = useNavigate();
   const [ searchParams ] = useSearchParams();
   const form = useCreateAddressForm( { onSuccess: () => navigate( searchParams.get( 'from' ) ? `/${searchParams.get( 'from' )}` : {} ) } );
+  const { canSubmit, fieldMeta } = useStore( form.store, state => state );
 
   const handleFormSubmit = ( e: FormEvent<HTMLFormElement> ) => {
     e.preventDefault();
@@ -23,11 +25,15 @@ const CreateAddressForm: FC<Props> = ( { className, ...props } ) => {
     form.handleSubmit();
   };
 
+  const getErrorMessages = () => {
+    return Object.values( fieldMeta ).filter( field => field.errors.length ).map( field => field.errors.map( item => item.message ) );
+  };
+
   return (
     <form onSubmit={handleFormSubmit} className={twMerge( 'w-full sm:w-80 relative', className )} {...props}>
       <h3 className="mb-5 text-xl text-center font-bold">Create address</h3>
       <div className="grid gap-4 sm:gap-5">
-        <form.Field name="city" validators={{ onChange: CreateAddressSchema.shape.city.min( 3 ) }}>
+        <form.Field name="city" validators={{ onChange: CreateAddressSchema.shape.city }}>
           {field =>
             <Field className="block grow relative">
               <Input type="text" name={field.name} value={field.state.value} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="City" className="peer w-full p-4 pl-11 rounded-xl bg-zinc-100 placeholder:text-zinc-300 focus:bg-transparent data-[error=true]:outline-rose-500" />
@@ -35,7 +41,7 @@ const CreateAddressForm: FC<Props> = ( { className, ...props } ) => {
             </Field>
           }
         </form.Field>
-        <form.Field name="address" validators={{ onChange: CreateAddressSchema.shape.address.min( 3 ) }}>
+        <form.Field name="address" validators={{ onChange: CreateAddressSchema.shape.address }}>
           {field =>
             <Field className="block grow relative">
               <Input type="text" name={field.name} value={field.state.value} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="Address" className="peer w-full p-4 pl-11 rounded-xl bg-zinc-100 placeholder:text-zinc-300 focus:bg-transparent data-[error=true]:outline-rose-500" />
@@ -43,7 +49,7 @@ const CreateAddressForm: FC<Props> = ( { className, ...props } ) => {
             </Field>
           }
         </form.Field>
-        <form.Field name="phone" validators={{ onChange: CreateAddressSchema.shape.phone.min( 10 ).max( 12 ) }}>
+        <form.Field name="phone" validators={{ onChange: CreateAddressSchema.shape.phone }}>
           {field =>
             <Field className="block grow relative">
               <Input type="tel" name={field.name} pattern="[0-9]{10}" value={field.state.value} onChange={e => field.handleChange( e.target.value )} data-error={field.state.meta.isValid ? false : true} placeholder="Phone" className="peer w-full p-4 pl-11 rounded-xl bg-zinc-100 placeholder:text-zinc-300 focus:bg-transparent data-[error=true]:outline-rose-500" />
@@ -57,7 +63,12 @@ const CreateAddressForm: FC<Props> = ( { className, ...props } ) => {
           }
         </form.Subscribe>
       </div>
-      <p className="mt-5 text-center">Lorem ipsum dolor sit amet</p>
+      <div className="w-full mt-5 text-center absolute top-full">
+        {!canSubmit ?
+          <p className=" text-red-600">{getErrorMessages().join( ', ' )}</p> :
+          <p>Lorem ipsum dolor sit amet</p>
+        }
+      </div>
     </form>
   );
 };
