@@ -5,8 +5,8 @@ export const AuthSchema = z.object( {
 } );
 
 export const CreateAuthSchema = z.object( {
-  nickname: z.string().min( 4, 'Nickname must be at least 4 characters long' ),
-  password: z.string().min( 8, 'Password must be at least 4 characters long' )
+  nickname: z.string().min( 3, 'Nickname must be ≥ 3 characters' ),
+  password: z.string().min( 8, 'Password must be ≥ 8 characters' )
 } );
 
 export type Auth = z.infer<typeof AuthSchema>;

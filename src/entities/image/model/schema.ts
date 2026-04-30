@@ -4,13 +4,13 @@ import { type PaginatedResponse } from '@/shared/types';
 
 export const ImageSchema = z.object( {
   _id: z.string(),
-  alt: z.string().min( 3 ),
+  alt: z.string().min( 3, 'Alt must be ≥ 3 characters' ),
   path: z.string(),
   url: z.string()
 } );
 
 export const CreateImageSchema = ImageSchema.pick( { alt: true } ).extend( {
-  image: z.instanceof( File )
+  image: z.instanceof( File, { error: 'Image must be chosen' } )
 } );
 
 export const UpdateImageSchema = ImageSchema.omit( { _id: true } );
