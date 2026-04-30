@@ -1,7 +1,9 @@
 import { useClose } from '@headlessui/react';
 import { useForm } from '@tanstack/react-form';
+import { HTTPError } from 'ky';
 
 import { type CreateAddressDTO, useCreateAddress } from '@/entities/address';
+import { mapServerErrors } from '@/shared/libs';
 
 export const useCreateAddressForm = ( { onSuccess, onError }: { onSuccess?: () => void, onError?: () => void } ) => {
   const close = useClose();
@@ -14,14 +16,17 @@ export const useCreateAddressForm = ( { onSuccess, onError }: { onSuccess?: () =
       phone: ''
     } as CreateAddressDTO,
 
-    onSubmit: async ( { value } ) => {
+    onSubmit: async ( { value, formApi } ) => {
       try {
         await create.mutateAsync( value );
         form.reset();
         close();
         onSuccess?.();
       } catch ( error ) {
-        console.log( error );
+        if ( error instanceof HTTPError ) {
+          const errors = await error.response.json();
+          formApi.setErrorMap( { onChange: { fields: mapServerErrors( errors.errors ) } } );
+        }
         onError?.();
       }
     }

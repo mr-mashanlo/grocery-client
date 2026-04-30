@@ -1,7 +1,9 @@
 import { useClose } from '@headlessui/react';
 import { useForm } from '@tanstack/react-form';
+import { HTTPError } from 'ky';
 
 import { type Category, type UpdateCategoryDTO, useUpdateCategory } from '@/entities/category';
+import { mapServerErrors } from '@/shared/libs';
 
 export const useArchiveCategoryForm = ( category: Category ) => {
   const close = useClose();
@@ -14,13 +16,16 @@ export const useArchiveCategoryForm = ( category: Category ) => {
       archived: !category.archived
     } as UpdateCategoryDTO,
 
-    onSubmit: async ( { value } ) => {
+    onSubmit: async ( { value, formApi } ) => {
       try {
         await update.mutateAsync( { id: category._id, data: value } );
         form.reset();
         close();
       } catch ( error ) {
-        console.log( error );
+        if ( error instanceof HTTPError ) {
+          const errors = await error.response.json();
+          formApi.setErrorMap( { onChange: { fields: mapServerErrors( errors.errors ) } } );
+        }
       }
     }
   } );
