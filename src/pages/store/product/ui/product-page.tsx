@@ -1,7 +1,5 @@
 import { type FC } from 'react';
 
-import { Footer } from '@/widgets/footer';
-import { Header } from '@/widgets/header';
 import { ProductUnit } from '@/widgets/product/unit';
 
 export const ProductPage: FC = () => {
@@ -15,9 +13,9 @@ export const ProductPage: FC = () => {
       <meta property="og:site_name" content="Grocery" />
       <meta property="twitter:card" content="summary" />
 
-      <Header />
-      <ProductUnit />
-      <Footer />
+      <main className="min-h-screen my-8 sm:my-20">
+        <ProductUnit />
+      </main>
     </>
   );
 };
