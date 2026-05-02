@@ -1,17 +1,20 @@
-import { type FC } from 'react';
+import { type DetailedHTMLProps, type FC, type HTMLAttributes } from 'react';
 import { Link } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 
 import { useCartStore } from '@/entities/cart';
 
 import Header from './header';
 import Table from './table';
 
-const CartTable: FC = () => {
+type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+
+const CartTable: FC<Props> = ( { className, ...props } ) => {
   const products = useCartStore( state => state.products );
   const getTotalQuantity = useCartStore( state => state.getTotalQuantity );
 
   return (
-    <section className="m-4 sm:m-10">
+    <section className={twMerge( 'mx-4 my-8 sm:mx-10 sm:my-20', className )} {...props}>
       <div className="border border-zinc-200 rounded-md">
         <div className="border-b border-zinc-200">
           <Header />

@@ -1,16 +1,19 @@
 import { type DetailedHTMLProps, type FC, type HTMLAttributes } from 'react';
 import { Link, useSearchParams } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 
 import { type PaginatedProduct, useProducts } from '@/entities/product';
 
 import Header from './header';
 import Pagination from './pagination';
 
-type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
+  products?: PaginatedProduct
+}
 
-const Skeleton: FC = () => {
+const Skeleton: FC<Props> = ( { className, ...props } ) => {
   return (
-    <section className="mx-4 my-8 sm:mx-10 sm:my-20 animate-pulse">
+    <section className={twMerge( 'mx-4 my-8 sm:mx-10 sm:my-20 animate-pulse', className )} {...props}>
       <Header />
       <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
         {Array.from( { length: 6 } ).map( ( _, index ) => <li key={index} className="w-full aspect-square bg-zinc-200 rounded-xl"></li> )}
@@ -20,9 +23,9 @@ const Skeleton: FC = () => {
   );
 };
 
-const Widget: FC<{ products?: PaginatedProduct}> = ( { products } ) => {
+const Widget: FC<Props> = ( { className, products, ...props } ) => {
   return (
-    <section className="mx-4 my-8 sm:mx-10 sm:my-20">
+    <section className={twMerge( 'mx-4 my-8 sm:mx-10 sm:my-20', className )} {...props}>
       <Header />
       <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
         {products?.data.map( product =>
@@ -41,7 +44,6 @@ const Widget: FC<{ products?: PaginatedProduct}> = ( { products } ) => {
 const ProductGrid: FC<Props> = () => {
   const [ searchParams ] = useSearchParams();
   const { products } = useProducts( { limit: '9', archived: 'false', ...Object.fromEntries( searchParams.entries() ) } );
-
   return products.isLoading ? <Skeleton /> : <Widget products={products.data} />;
 };
 

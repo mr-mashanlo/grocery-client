@@ -1,15 +1,18 @@
 import { type DetailedHTMLProps, type FC, type HTMLAttributes } from 'react';
 import { Link, useSearchParams } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 
 import { type PaginatedCategory, useCategories } from '@/entities/category';
 
 import Header from './header';
 
-type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
+  categories?: PaginatedCategory
+}
 
-const Skeleton: FC = () => {
+const Skeleton: FC<Props> = ( { className, ...props } ) => {
   return (
-    <section className="m-4 sm:m-10">
+    <section className={twMerge( 'mx-4 my-8 sm:mx-10 sm:my-20', className )} {...props}>
       <Header />
       <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
         {Array.from( { length: 6 } ).map( ( _, index ) => <li key={index} className="w-full aspect-square bg-zinc-100 rounded-xl"></li> )}
@@ -18,9 +21,9 @@ const Skeleton: FC = () => {
   );
 };
 
-const Widget: FC<{ categories?: PaginatedCategory }> = ( { categories } ) => {
+const Widget: FC<Props> = ( { className, categories, ...props } ) => {
   return (
-    <section className="m-4 sm:m-10">
+    <section className={twMerge( 'mx-4 my-8 sm:mx-10 sm:my-20', className )} {...props}>
       <Header />
       <ul className="grid sm:grid-cols-3 gap-4 sm:gap-5">
         {categories?.data.map( category =>
@@ -37,7 +40,6 @@ const Widget: FC<{ categories?: PaginatedCategory }> = ( { categories } ) => {
 const CategoryGrid: FC<Props> = () => {
   const [ searchParams ] = useSearchParams();
   const { categories } = useCategories( { archived: 'false', ...Object.fromEntries( searchParams.entries() ) } );
-
   return categories.isLoading ? <Skeleton /> : <Widget categories={categories.data} />;
 };
 

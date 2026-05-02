@@ -1,13 +1,17 @@
-import { type FC } from 'react';
+import { type DetailedHTMLProps, type FC, type HTMLAttributes } from 'react';
 import { useParams } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 
 import { type Product, useProduct } from '@/entities/product';
 import { AddToCartButton } from '@/features/cart/add-to-cart-button';
 
-const Skeleton: FC = () => {
+interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
+  product?: Product
+}
+
+const Skeleton: FC<Props> = ( { className, ...props } ) => {
   return (
-    <section aria-hidden="true" className="m-4 sm:m-10 animate-pulse">
+    <section aria-hidden="true" className={twMerge( 'mx-4 my-8 sm:mx-10 sm:my-20 animate-pulse', className )} {...props}>
       <div className="grid sm:grid-cols-3 gap-4 sm:gap-5">
         <ul className="grid sm:grid-cols-2 gap-4 sm:gap-5 sm:col-span-2">
           {Array.from( { length: 4 } ).map( ( _, index ) => <li key={index} className="w-full aspect-square bg-zinc-200 rounded-xl"></li> )}
@@ -25,9 +29,9 @@ const Skeleton: FC = () => {
   );
 };
 
-const Widget: FC<{ product?: Product }> = ( { product } ) => {
+const Widget: FC<Props> = ( { className, product, ...props } ) => {
   return (
-    <section className="m-4 sm:m-10 ">
+    <section className={twMerge( 'mx-4 my-8 sm:mx-10 sm:my-20', className )} {...props}>
       <div className="grid sm:grid-cols-3 gap-4 sm:gap-5">
         <ul className="grid sm:grid-cols-2 gap-4 sm:gap-5 sm:col-span-2">
           {product?.images.map( image => <li key={image._id} className="block aspect-square rounded-xl overflow-hidden"><img src={image.url} alt={image.alt} className="w-full h-full" /></li> )}
@@ -46,10 +50,9 @@ const Widget: FC<{ product?: Product }> = ( { product } ) => {
   );
 };
 
-const ProductUnit: FC = () => {
-  const { id } = useParams();
-  const { product } = useProduct( id || '' );
-
+const ProductUnit: FC<Props> = () => {
+  const { slug } = useParams();
+  const { product } = useProduct( slug || '' );
   return product.isLoading ? <Skeleton /> : <Widget product={product.data} />;
 };
 

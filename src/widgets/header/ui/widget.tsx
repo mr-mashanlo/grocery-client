@@ -6,9 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import { useMe } from '@/entities/auth';
 import { useCartStore } from '@/entities/cart';
 
-interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
-  className?: string
-}
+type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 
 const Header: FC<Props> = ( { className, ...props } ) => {
   const { getTotalQuantity } = useCartStore();

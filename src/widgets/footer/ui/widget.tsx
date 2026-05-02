@@ -4,9 +4,7 @@ import { twMerge } from 'tailwind-merge';
 
 import { useMe } from '@/entities/auth';
 
-interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
-  className?: string
-}
+type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 
 const Footer: FC<Props> = ( { className, ...props } ) => {
   const { me } = useMe();
