@@ -1,3 +1,4 @@
+import { productService } from './api/api';
 import { type CreateProductDTO, CreateProductSchema, type PaginatedProduct, type Product, type UpdateProductDTO, UpdateProductSchema } from './model/schema';
 import { useCreateProduct } from './model/use-create-product';
 import { useDeleteProduct } from './model/use-delete-product';
@@ -7,4 +8,4 @@ import { useUpdateProduct } from './model/use-update-product';
 
 export { type CreateProductDTO, CreateProductSchema, type PaginatedProduct, type Product, type UpdateProductDTO, UpdateProductSchema };
 
-export { useCreateProduct, useDeleteProduct, useProduct, useProducts, useUpdateProduct };
+export { productService, useCreateProduct, useDeleteProduct, useProduct, useProducts, useUpdateProduct };

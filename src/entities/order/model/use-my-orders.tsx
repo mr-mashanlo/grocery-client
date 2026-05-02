@@ -5,7 +5,7 @@ import { orderService } from '../api/api';
 export const useMyOrders = ( params?: Record<string, string> ) => {
 
   const orders = useQuery( {
-    queryKey: [ 'orders', 'me', params ],
+    queryKey: [ 'orders', params ],
     queryFn: () => orderService.getMyOrders( params ),
     placeholderData: data => data
   } );

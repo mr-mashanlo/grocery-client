@@ -1,3 +1,4 @@
+import { addressService } from './api/api';
 import { type Address, type CreateAddressDTO, CreateAddressSchema, type UpdateAddressDTO, UpdateAddressSchema } from './model/schema';
 import { useAddress } from './model/use-address';
 import { useAddresses } from './model/use-addresses';
@@ -8,4 +9,5 @@ import { useUpdateAddress } from './model/use-update-address';
 
 export { type Address, type CreateAddressDTO, CreateAddressSchema, type UpdateAddressDTO, UpdateAddressSchema };
 
-export { useAddress, useAddresses, useCreateAddress, useDeleteAddress, useMyAddress, useUpdateAddress };
+export { addressService, useAddress, useAddresses, useCreateAddress, useDeleteAddress, useMyAddress, useUpdateAddress };
+

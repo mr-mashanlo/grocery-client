@@ -1,3 +1,4 @@
+import { categoryService } from './api/api';
 import { type Category, type CreateCategoryDTO, CreateCategorySchema, type PaginatedCategory, type UpdateCategoryDTO, UpdateCategorySchema } from './model/schema';
 import { useCategories } from './model/use-categories';
 import { useCreateCategory } from './model/use-create-category';
@@ -6,4 +7,4 @@ import { useUpdateCategory } from './model/use-update-category';
 
 export { type Category, type CreateCategoryDTO, CreateCategorySchema, type PaginatedCategory, type UpdateCategoryDTO, UpdateCategorySchema };
 
-export { useCategories, useCreateCategory, useDeleteCategory, useUpdateCategory };
+export { categoryService, useCategories, useCreateCategory, useDeleteCategory, useUpdateCategory };
