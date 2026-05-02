@@ -9,7 +9,7 @@ export const addressRouter: RouteObject = {
   path: '/address',
   element: <AddressPage />,
   loader: addressLoader,
-  hydrateFallbackElement: <div />
+  hydrateFallbackElement: <div className="w-screen h-screen bg-zinc-50 fixed top-0 left-0 z-40" />
 };
 
 export const createAddressRouter: RouteObject = {

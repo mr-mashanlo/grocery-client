@@ -7,5 +7,5 @@ export const ordersRouter: RouteObject = {
   path: '/orders',
   element: <OrdersPage />,
   loader: ordersLoader,
-  hydrateFallbackElement: <div />
+  hydrateFallbackElement: <div className="w-screen h-screen bg-zinc-50 fixed top-0 left-0 z-40" />
 };
