@@ -3,10 +3,13 @@ import { type RouteObject } from 'react-router';
 import CreateProductsPage from '../ui/create-products-page';
 import ProductsPage from '../ui/products-page';
 import UpdateProductsPage from '../ui/update-products-page';
+import { productsLoader } from './loader';
 
 export const productsRouter: RouteObject = {
   path: '/admin/products',
-  element: <ProductsPage />
+  element: <ProductsPage />,
+  loader: productsLoader,
+  hydrateFallbackElement: <div />
 };
 
 export const createProductsRouter: RouteObject = {

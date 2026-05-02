@@ -2,13 +2,18 @@ import { type RouteObject } from 'react-router';
 
 import ProductPage from '../ui/product-page';
 import ProductsPage from '../ui/products-page';
+import { productLoader, productsLoader } from './loader';
 
 export const productsRouter: RouteObject = {
   path: '/products',
-  element: <ProductsPage />
+  element: <ProductsPage />,
+  loader: productsLoader,
+  hydrateFallbackElement: <div />
 };
 
 export const productRouter: RouteObject = {
-  path: '/products/:id',
-  element: <ProductPage />
+  path: '/products/:slug',
+  element: <ProductPage />,
+  loader: productLoader,
+  hydrateFallbackElement: <div />
 };
