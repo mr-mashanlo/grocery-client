@@ -10,11 +10,12 @@ interface Props {
 
 const Pagination: FC<Props> = ( { limit, page, total } ) => {
   const [ searchParams, setSearchParams ] = useSearchParams();
-
+  const params = new URLSearchParams( searchParams );
   const pages = total > limit ? Math.ceil( total / limit ) : 1;
 
-  const setParams = ( params?: Record<string, string> ) => {
-    setSearchParams( { ...Object.fromEntries( searchParams.entries() ), ...params } );
+  const setParams = ( query?: Record<string, string> ) => {
+    params.set( 'page', query?.page || '' );
+    setSearchParams( params );
   };
 
   return (

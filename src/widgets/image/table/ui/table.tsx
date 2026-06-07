@@ -12,17 +12,19 @@ interface Props extends DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>,
 
 const Table: FC<Props> = ( { images, ...props } ) => {
   const [ searchParams, setSearchParams ] = useSearchParams();
+  const params = new URLSearchParams( searchParams );
 
-  const setParams = ( params?: Record<string, string> ) => {
-    if ( !params ) return;
+  const setParams = ( query?: Record<string, string> ) => {
+    if ( !query ) return;
 
-    if ( searchParams.get( 'sort' ) === params.sort ) {
-      const updatedParams = { ...params, sort: searchParams.get( 'sort' ) || '', order: searchParams.get( 'order' ) === 'desc' ? 'asc' : 'desc' };
-      setSearchParams( { ...Object.fromEntries( searchParams.entries() ), ...updatedParams } );
+    if ( query.sort === searchParams.get( 'sort' ) ) {
+      params.set( 'order', searchParams.get( 'order' ) === 'asc' ? 'desc' : 'asc' );
     } else {
-      const updatedParams = { ...params, sort: params.sort, order: 'asc' };
-      setSearchParams( { ...Object.fromEntries( searchParams.entries() ), ...updatedParams } );
+      params.set( 'order', 'asc' );
     }
+
+    params.set( 'sort', query.sort );
+    setSearchParams( params );
   };
 
   return (
